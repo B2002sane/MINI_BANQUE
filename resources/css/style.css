@@ -1,0 +1,140 @@
+/* Reset some default styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Grid layout */
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    width: 90%; /* Utiliser une largeur relative */
+    height: auto; /* Permettre à la hauteur de s'ajuster */
+}
+
+/* Left side (image) */
+.left-side {
+    background-color: #42bae1;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem; /* Utiliser des unités relatives */
+}
+
+.left-side img {
+    max-width: 100%; /* Assurer que l'image est responsive */
+    height: auto; /* Conserver les proportions */
+}
+
+/* Right side (connection form) */
+.right-side {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5rem; /* Utiliser des unités relatives */
+}
+
+.connection-form {
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem; /* Utiliser des unités relatives */
+}
+
+.connection-form h2 {
+    font-size: 2rem; /* Utiliser des unités relatives */
+    margin-bottom: 1rem;
+}
+
+.connection-form h5 a {
+    text-decoration: none;
+}
+
+.connection-form p {
+    font-size: 1rem; /* Utiliser des unités relatives */
+    margin-bottom: 2rem;
+}
+
+.connection-form .form-group {
+    margin-bottom: 1.5rem; /* Utiliser des unités relatives */
+}
+
+.connection-form label {
+    display: block;
+    font-weight: bold;
+    font-size: 1rem; /* Utiliser des unités relatives */
+    margin-bottom: 0.5rem; /* Utiliser des unités relatives */
+}
+
+.connection-form .input-group {
+    position: relative;
+}
+
+.connection-form input {
+    width: 100%;
+    padding: 1rem 2.5rem 1rem 1rem; /* Ajuster padding */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 1rem; /* Utiliser des unités relatives */
+}
+
+.connection-form .input-group-icon {
+    position: absolute;
+    top: 50%;
+    right: 1rem; /* Utiliser des unités relatives */
+    transform: translateY(-50%);
+    color: #888;
+}
+
+.connection-form button {
+    background-color: #046DB5;
+    color: #fff;
+    border: none;
+    padding: 1rem 2rem; /* Ajuster padding */
+    border-radius: 6px;
+    font-size: 1rem; /* Utiliser des unités relatives */
+    cursor: pointer;
+    width: 100%;
+    margin-top: 1.5rem; /* Utiliser des unités relatives */
+}
+
+.connection-form button:hover {
+    background-color: #0056b3;
+}
+
+.connection-form .forgot-password {
+    display: block;
+    margin-top: 0.5rem; /* Utiliser des unités relatives */
+    color: #007bff;
+    text-decoration: none;
+    font-size: 0.875rem; /* Utiliser des unités relatives */
+    text-align: right;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* Passer à une seule colonne sur les petits écrans */
+        height: auto; /* Permettre à la hauteur de s'ajuster */
+    }
+
+    .right-side {
+        padding: 2rem; /* Réduire le padding */
+    }
+}

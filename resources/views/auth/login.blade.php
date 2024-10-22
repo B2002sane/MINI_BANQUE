@@ -1,47 +1,55 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-    <form method="POST" action="{{ route('login') }}">
-        @csrf
-
-        <!-- Email Address -->
-        <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fast Money - Connection</title>
+    @vite(['resources/css/style.css', 'resources/js/app.js'])
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="grid-container">
+        <div class="left-side">
+            <img src="{{ asset('images/logo.png') }}" alt="Fast Money">
         </div>
+        <div class="right-side">
+            <div class="connection-form">
+                <h1>CONNEXION</h1><br>
+                <p>Veuillez saisir votre numéro et votre mot de passe</p>
+                <form method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <div class="form-group">
+                        <label for="phone-number">Numéro de téléphone</label>
+                        <div class="input-group">
+                            <input type="tel" id="phone-number" name="phone" placeholder="Saisir votre numéro" required autofocus>
+                            <span class="input-group-icon">
+                                <i class="fas fa-phone"></i>
+                            </span>    @vite(['resources/css/style.css', 'resources/js/app.js'])
 
-        <!-- Password -->
-        <div class="mt-4">
-            <x-input-label for="password" :value="__('Password')" />
-
-            <x-text-input id="password" class="block mt-1 w-full"
-                            type="password"
-                            name="password"
-                            required autocomplete="current-password" />
-
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+                        </div>
+                        @error('phone')
+                            <span class="text-red-500">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Mot de passe</label>
+                        <div class="input-group">
+                            <input type="password" id="password" name="password" placeholder="Saisir votre mot de passe" required>
+                            <span class="input-group-icon password-toggle">
+                                <i class="fas fa-eye"></i>
+                            </span>
+                        </div>
+                        @error('password')
+                            <span class="text-red-500">{{ $message }}</span>
+                        @enderror
+                    </div>
+                    <button type="submit">SE CONNECTER</button>
+                    <a href="{{ route('password.request') }}" class="forgot-password">Mot de passe oublié ?</a><br><br>
+                    <h5>Je n’ai pas encore de compte <a href="{{ route('register') }}">Créer un compte ?</a></h5>
+                </form>
+            </div>
         </div>
-
-        <!-- Remember Me -->
-        <div class="block mt-4">
-            <label for="remember_me" class="inline-flex items-center">
-                <input id="remember_me" type="checkbox" class="rounded border-gray-300 text-indigo-600 shadow-sm focus:ring-indigo-500" name="remember">
-                <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
-            </label>
-        </div>
-
-        <div class="flex items-center justify-end mt-4">
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-
-            <x-primary-button class="ms-3">
-                {{ __('Log in') }}
-            </x-primary-button>
-        </div>
-    </form>
-</x-guest-layout>
+    </div>
+    <script src="{{ asset('js/script.js') }}"></script>
+</body>
+</html>
