@@ -7,6 +7,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::get('/registeraction', function () {
+    return view('register2');
+});
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
