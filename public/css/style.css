@@ -1,0 +1,129 @@
+:root {
+    --primary-color: #45B6E5;
+    --primary-dark: #3CA5D2;
+    --text-color: #333;
+}
+
+body {
+    font-family: 'Figtree', sans-serif;
+    background-color: #ffffff;
+    margin:20px;
+}
+
+.nav-buttons {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+}
+
+.btn-connect {
+    background-color: #42BAE1;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+}
+.btn-connect:hover{
+    background-color:white;
+    color:#42BAE1;
+}
+
+.btn-register {
+    background-color: white;
+    color: #42BAE1;
+    border: 2px solid #42BAE1;
+    padding: 10px 20px;
+}
+
+.btn-register:hover{
+    background-color: #42BAE1;
+    color:white;
+}
+
+
+.content-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+}
+
+.text-content {
+    margin-left: 200px;
+    flex: 1;
+    font-family:bold;
+}
+.text-content h1{
+    font-size:50px;
+    
+}
+
+.main-heading {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 3rem;
+    line-height: 1.2;
+}
+
+.sub-text {
+    margin-left:80px;
+    font-size: 1.1rem;
+    color: #42BAE1;
+    margin-bottom: 5rem;
+    line-height: 1.6;
+}
+
+.stats-container {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 2rem;
+}
+
+.stat-item {
+    background-color: #42BAE1;
+    color: white;
+    padding: 20px 40px;
+    border-radius: 5px;
+    font-weight: 500;
+    margin:50px;
+}
+
+.logo-container {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.logo-container img {
+    max-width: 800px;
+    width: 100%;
+    height: 800px
+}
+
+.footer-text {
+    text-align: center;
+    color: #046DB5;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: 3rem;
+    margin-right: 1050px;
+}
+
+@media (max-width: 768px) {
+    .content-wrapper {
+        flex-direction: column;
+    }
+
+    .main-heading {
+        font-size: 2rem;
+    }
+
+    .logo-container {
+        order: -1;
+    }
+}
