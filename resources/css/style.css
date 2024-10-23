@@ -57,13 +57,9 @@ body {
     padding: 2rem; /* Utiliser des unités relatives */
 }
 
-.connection-form h2 {
+.connection-form h1 {
     font-size: 2rem; /* Utiliser des unités relatives */
     margin-bottom: 1rem;
-}
-
-.connection-form h5 a {
-    text-decoration: none;
 }
 
 .connection-form p {
@@ -125,6 +121,16 @@ body {
     text-decoration: none;
     font-size: 0.875rem; /* Utiliser des unités relatives */
     text-align: right;
+}
+
+/* Alert styles */
+.alert {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+    padding: 1rem;
+    border-radius: 5px;
+    margin-bottom: 1rem;
 }
 
 /* Media Queries */

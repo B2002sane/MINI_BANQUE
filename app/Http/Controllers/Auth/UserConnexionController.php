@@ -1,5 +1,25 @@
 <?php
 
+namespace App\Http\Controllers\Auth;
+
+use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+class UserConnexionController extends Controller
+{
+    /**
+     * Affiche la vue de connexion.
+     */
+    public function create()
+    {
+        return view('auth.login');
+    }
+
+    /**<?php
+
 namespace App\Http\Requests\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -41,5 +61,36 @@ class LoginRequest extends FormRequest
                 'phone' => ['Les informations d\'identification fournies sont incorrectes.'],
             ]);
         }
+    }
+}
+
+     * Gère une requête d'authentification entrante.
+     */
+    public function store(LoginRequest $request): RedirectResponse
+    {
+        // Authentification avec le numéro de téléphone et le mot de passe
+        if (Auth::attempt(['phone' => $request->phone, 'password' => $request->password])) {
+            // Régénérer la session pour éviter la fixation de session
+            $request->session()->regenerate();
+
+            // Rediriger vers le tableau de bord ou une autre page
+            return redirect()->intended('/dashboard'); // Change cette route selon ta configuration
+        }
+
+        // Si l'authentification échoue, renvoie les erreurs
+        return back()->withErrors([
+            'phone' => 'Les informations fournies ne correspondent pas à nos enregistrements.',
+        ]);
+    }
+
+    /**
+     * Déconnecte une session authentifiée.
+     */
+    public function destroy(Request $request): RedirectResponse
+    {
+        Auth::logout();
+
+        // Rediriger vers la page d'accueil ou une autre page
+        return redirect('/'); // Change cette route selon ta configuration
     }
 }
