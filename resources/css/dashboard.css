@@ -1,0 +1,65 @@
+.dashboard-container {
+    display: flex;
+}
+
+.sidebar {
+    width: 20%;
+    background-color: #00AEEF;
+    padding: 20px;
+}
+
+.logo {
+    width: 100px;
+    margin-bottom: 20px;
+}
+
+.logout-btn {
+    position: absolute;
+    bottom: 20px;
+}
+
+.dashboard-content {
+    width: 80%;
+    padding: 20px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.profile-pic {
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.action {
+    text-align: center;
+    padding: 20px;
+    background-color: #F9F9F9;
+    border-radius: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.action:hover {
+    background-color: #E0E0E0;
+}
+
+.action img {
+    width: 50px;
+    margin-bottom: 10px;
+}
