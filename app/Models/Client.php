@@ -31,5 +31,14 @@ class Client extends Model
         'date_creation' => 'datetime',
         'date_modification' => 'datetime',
         'date_suppression' => 'datetime',
+    
     ];
+
+
+    // Ajoutez cette relation
+    public function compte()
+    {
+        return $this->hasOne(Compte::class, 'id_users', 'id');
+    }
+
 }

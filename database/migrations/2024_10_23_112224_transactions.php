@@ -19,7 +19,7 @@ return new class extends Migration
             $table->integer('status');
             $table->integer('frais');
             $table->timestamps();
-            $table->foreign('id_users')->references('id')->on('user');
+            $table->foreign('id_users')->references('id')->on('users');
 
 
 

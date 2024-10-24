@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use Illuminate\Http\Request;
+use App\Models\Compte;
+use Illuminate\Support\Facades\DB;
 
 class ClientController extends Controller
 {
@@ -13,6 +15,19 @@ class ClientController extends Controller
     public function create()
     {
         return view('auth.register2');
+    }
+
+    /**
+     * Génère un numéro de compte unique
+     */
+    private function generateUniqueAccountNumber()
+    {
+        do {
+            // Génère un nombre aléatoire de 10 chiffres
+            $number = mt_rand(1000000, 9999999);
+        } while (Compte::where('numeroCompte', $number)->exists());
+
+        return $number;
     }
 
     /**
@@ -57,6 +72,20 @@ class ClientController extends Controller
 
         // Création de l'utilisateur
         $client = Client::create($userData);
+        // Création du compte associé
+        $compte = new Compte([
+            'id_users' => $client->id,
+            'numeroCompte' => $this->generateUniqueAccountNumber(),
+            'solde' => 0,
+            'statut' => 1, // 1 pour actif
+            'date_creation' => now(),
+            'date_suppression' => null
+        ]);
+        
+        $compte->save();
+
+        DB::commit();
+        
         session()->flash('success', 'Votre opération a été effectuée avec succès !');
 
         // Redirection avec message de succès
