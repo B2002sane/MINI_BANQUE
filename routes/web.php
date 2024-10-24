@@ -2,13 +2,15 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ClientController;
+
 
 Route::get('/', function () {
     return view('welcome');
 });
 
 
-Route::get('/registeraction', function () {
+Route::get('/register2', function () {
     return view('register2');
 });
 
@@ -22,4 +24,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+
+
+
+Route::get('/register2', [ClientController::class, 'create'])->name('register2');
+Route::post('/register2', [ClientController::class, 'store'])->name('register2.store');
 require __DIR__.'/auth.php';

@@ -1,0 +1,103 @@
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+}
+.container {
+    max-width: 700px;
+    height: 730px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.logo {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.logo img {
+    max-width: 150px;
+}
+.formu{
+    border: solid 1px;
+   padding: 15px;
+   padding-top: 25px
+}
+.form-title {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+   
+}
+.form-group {
+    margin-bottom: 15px;
+}
+label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #FAFAFA
+    
+}
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+    margin-left: 400px;
+}
+.btn {
+    padding : 10px 20px;
+    
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.btn-primary {
+    background-color: #046DB5;
+    color: white;
+  
+}
+.btn-danger {
+    background-color: #B50407;
+    color: white;
+    
+    
+}
+.lien{
+    text-decoration: none;
+    color: white;
+}
+.footer-text {
+    
+    margin-top: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.text-red-500 {
+    color: red; /* Couleur rouge */
+    font-size: 0.8rem; /* Taille de police plus petite */
+    margin-top: 0.2rem; /* Espacement au-dessus du message d'erreur */
+}
+
+.disabled {
+    opacity: 0.5; /* Réduit l'opacité */
+    cursor: not-allowed; /* Change le curseur pour montrer qu'il n'est pas cliquable */
+}
