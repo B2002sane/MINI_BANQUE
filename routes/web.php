@@ -2,9 +2,18 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\TransactionController;
+
+Route::post('/retrait', [TransactionController::class, 'retrait'])->name('retrait.submit');
+
+Route::get('/retrait', [TransactionController::class, 'index'])->name('retrait.view');
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::get('/distributeur', function () {
+    return view('dashboard_distributeur');
 });
 
 Route::get('/dashboard', function () {
