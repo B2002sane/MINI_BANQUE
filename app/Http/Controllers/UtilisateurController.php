@@ -7,7 +7,8 @@ use App\Models\UtilisateurModel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
+use App\Models\CompteModel;
 
 class UtilisateurController extends Controller
 {
@@ -53,6 +54,24 @@ class UtilisateurController extends Controller
                 'photo' => $photoPath,
                 'password' => Hash::make($request->password),
             ]);
+             // Générer un numéro de compte unique
+             do {
+                $numeroCompte = rand(1000000000, 9999999999); // Génère un numéro de compte à 10 chiffres
+            } while (CompteModel::where('numeroCompte', $numeroCompte)->exists());
+
+            // Création du compte associé
+            $compte = new CompteModel([
+                'id_utilisateur' => $utilisateur->id,
+                'numeroCompte' => $numeroCompte,
+                'solde' => 0,
+                'statut' => 1, // 1 pour actif
+                'date_creation' => now(),
+                'date_suppression' => null
+            ]);
+
+            $compte->save();
+
+            DB::commit();
 
             return redirect()->back()->with('success', 'Utilisateur créé avec succès');
 
@@ -99,7 +118,7 @@ class UtilisateurController extends Controller
               
             
 
-            return redirect()->back()->with('success', 'Utilisateur modifié avec succès');
+            return redirect()->back()->with('success', 'Utilisateur créé avec succès');
 
         } catch (\Exception $e) {
             return redirect()->back()
