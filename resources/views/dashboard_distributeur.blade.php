@@ -19,7 +19,7 @@
             min-height: 100vh;
             display: flex;
         }
-
+ 
         .sidebar {
             width: 300px;
             background-color: #42BAE1;
@@ -114,6 +114,24 @@
             width: 100%;
             transition: all 0.3s ease;
         }
+        .action-button {
+    background-color: #f8f9fa;
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    height: 100%;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.action-button:hover {
+    background-color: #e9ecef;
+    transform: translateY(-2px);
+    text-decoration: none;
+    color: inherit;
+}
 
         /* Responsive Designs */
         @media (max-width: 1200px) {
@@ -229,14 +247,14 @@
 
                 <!-- Actions Grid -->
                 <div class="row g-4 mb-4">
-                    <div class="col-6 col-md-4">
-                        <button class="action-button w-100">
-                            <div class="icon-circle">
-                                <i class="fas fa-wallet"></i>
-                            </div>
-                            <div class="text-center fw-bold">DEPOT</div>
-                        </button>
-                    </div>
+                <div class="col-6 col-md-4">
+                    <a href="{{ url('/form') }}" class="action-button w-100 text-decoration-none">
+                        <div class="icon-circle">
+                            <i class="fas fa-wallet"></i>
+                        </div>
+                        <div class="text-center fw-bold">DEPOT</div>
+                    </a>
+                </div>
                     <div class="col-6 col-md-4">
                         <button class="action-button w-100">
                             <div class="icon-circle">

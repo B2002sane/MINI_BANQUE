@@ -17,8 +17,12 @@ class AppServiceProvider extends ServiceProvider
     /**
      * Bootstrap any application services.
      */
+
+
     public function boot(): void
-    {
-        //
-    }
+{
+    $this->app['router']->aliasMiddleware('role', \App\Http\Middleware\CheckRole::class);
+}
+
+
 }
