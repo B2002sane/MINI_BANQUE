@@ -7,6 +7,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <style>
@@ -34,11 +35,22 @@
 		</div>
 		
             </div>
+            <div class="qr-container mt-3">
+            <div class="qr-code">
+                <div id="qrcode"></div>
+            </div>
+        </div>
+
 <div class="container "> <!-- Conteneur ajouté ici -->
 <label for="chercher">
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"/></svg>
 				<input type="text" id="chercher">
 			</label>
+            @if (session('success'))
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
+            @endif
     <h1 class="text-center m-5">LISTE DES CLIENTS</h1>
     <div class="table-responsive">
         <table class="table table-striped" >
@@ -76,6 +88,8 @@
                         <td>{{ $client->adresse }}</td>
                         <td>{{ $client->date_naissance }}</td>
                         <td>{{ $client->cni }}</td>
+                    
+
                         <td>
                             <div class="btn-group">
                                 <a href="{{ route('clients.show', $client) }}" 
@@ -106,13 +120,9 @@
                                             </svg>
                                     </button>
                                 </form>
-                                
 
-                                <form action="{{ route('clients.destroy', $client) }}" 
-                                      method="POST" 
-                                      class="d-inline">
+                                <form action="{{ route('clients.bloquer', $client->id) }}" method="POST" class="d-inline">
                                     @csrf
-                                    @method('DELETE')
                                     <button type="submit" 
                                             class="btn btn-danger m-2"
                                             onclick="return confirm('Êtes-vous sûr de vouloir bloquer ce client ?')">
@@ -120,7 +130,9 @@
                                             <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m0 5.996V14H3s-1 0-1-1 1-4 6-4q.845.002 1.544.107a4.5 4.5 0 0 0-.803.918A11 11 0 0 0 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664zM9 13a1 1 0 0 1 1-1v-1a2 2 0 1 1 4 0v1a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1zm3-3a1 1 0 0 0-1 1v1h2v-1a1 1 0 0 0-1-1"/>
                                             </svg>
                                     </button>
+                                    </button>
                                 </form>
+
                             </div>
                         </td>
                     </tr>
@@ -144,6 +156,16 @@
             });
         });
     });
+
+
+      
+        // Générer le code QR
+                var qrcode = new QRCode(document.getElementById("qrcode"), {
+            text: "{{ $client->telephone }}",
+            width: 256,
+            height: 256
+        });
+        
 </script>
 
 

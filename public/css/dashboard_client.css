@@ -1,0 +1,176 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #47b5e8;
+    padding: 20px;
+    position: fixed;
+    height: 100vh;
+}
+
+.logo-container {
+   
+    padding: 2px;
+    border-radius: 8px;
+    margin-bottom: 2px;
+    width: 5px;
+    height: 5px;
+}
+
+.logo {
+    width: 200px;
+    height: 200px;
+
+}
+
+.main-content {
+    margin-left: 250px;
+    padding: 40px;
+    flex-grow: 1;
+}
+
+.balance-section {
+    margin-bottom: 40px;
+}
+
+.balance-label {
+    font-size: 1.8em;
+    color: #000000;
+    margin-bottom: 10px;
+    margin-left: 600px;
+}
+
+.balance-display {
+    display: flex;
+    position: relative;
+    align-items: center;
+    gap: 10px;
+}
+
+.balance-input {
+    font-size: 2em;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 500px;
+    text-align: center;
+    margin-left: 450px;
+    height: 60px;
+   
+}
+
+.eye-icon {
+    
+    right: 10px; /* Ajuste selon tes préférences */
+    cursor: pointer;
+    font-size: 1.5em;
+    color: black; /* Change si nécessaire */
+    margin-left: -55px;
+}
+
+.qr-code {
+    width: 200px;
+    height: 200px;
+    margin: 20px 0;
+}
+
+.features {
+    display: flex;
+    gap: 40px;
+    margin-top: 40px;
+}
+
+.feature {
+    text-align: center;
+    flex: 1;
+}
+
+.feature-icon {
+    width: 150px;
+    height: 150px;
+    margin-bottom: 10px;
+    fill: #47b5e8;
+}
+
+.feature-title {
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.logout-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.user-profile {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.user-name {
+    color: #333;
+}
+
+.bloc{
+
+margin-top: 5000px;
+
+}
+
+
+footer{
+    margin-top:300px ;
+    position:center;
+     color: #666;
+     margin-left: 400px;
+     
+       
+}
+/* Media Queries pour la réactivité */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%; /* Sidebar pleine largeur sur mobile */
+        height: auto;
+        position: relative; /* Changer de position */
+    }
+
+    .main-content {
+        margin-left: 0; /* Aucune marge sur mobile */
+        padding: 20px; /* Réduire le padding */
+    }
+
+    .features {
+        flex-direction: column; /* Aligner les fonctionnalités en colonne */
+        align-items: center; /* Centre les fonctionnalités */
+    }
+}

@@ -21,16 +21,9 @@
     </head>
     <body>
         <div class="nav-buttons">
-            @if (Route::has('login'))
-                @auth
-                    <a href="{{ url('/dashboard') }}" class="btn-connect">Dashboard</a>
-                @else
                     <a href="{{ route('login') }}" class="btn-connect">SE CONNECTER</a>
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="btn-connect btn-register">CRÉER UN COMPTE</a>
-                    @endif
-                @endauth
-            @endif
+                    
+                     <a href="/inscription_client" class="btn-connect btn-register">CRÉER UN COMPTE</a>
         </div>
 
         <div class="main-content">

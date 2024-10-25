@@ -189,7 +189,7 @@
 
                         <!-- Crediter Distributeur -->
                         <div class="col-md-4">
-                            <a href="#" class="action-button">
+                            <a href="/crediter_distributeur" class="action-button">
                                 <div class="icon-circle">
                                     <i class="fas fa-dollar-sign"></i>
                                 </div>

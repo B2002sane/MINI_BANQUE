@@ -1,7 +1,7 @@
 <?php
 
 
-
+use App\Http\Controller\inscription_clientController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ClientController;
@@ -13,12 +13,25 @@ use Illuminate\Support\Facades\Route;
 });*/
 
 
+Route::get('/register2', [ClientController::class, 'create'])->name('register2');
+Route::post('/register2', [ClientController::class, 'store'])->name('register2.store');
+
+
 Route::get('/', function () {
     return view('bienvenue');
 });
 
+
+Route::get('/inscription_client', function () {
+    return view('inscription_client');
+});
+
 Route::get('/dashboard_distributeur', function () {
     return view('dashboard_distributeur');
+});
+
+Route::get('/dashboard_client', function () {
+    return view('dashboard_client');
 });
 
 Route::get('/dashboard_agent', function () {
@@ -32,6 +45,10 @@ Route::get('/list_client', function () {
 Route::get('/form', function () {
     return view('formulaireTransactions');
 })->name('transaction.form');
+
+Route::get('/crediter_distributeur', function () {
+    return view('crediter_distributeur');
+})->name('crediter_distributeur');
 
 Route::get('/creerclient', function () {
     return view('form_create_client');
@@ -50,6 +67,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::resource('clients', ClientController::class);
+Route::post('/clients/{id}/bloquer', [ClientController::class, 'bloquer'])->name('clients.bloquer');
+
 
 
 

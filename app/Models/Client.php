@@ -25,4 +25,10 @@ class Client extends Model
         'photo', 
         'password'
     ];
+
+
+    public function compte()
+    {
+        return $this->hasOne(Compte::class, 'id_users'); // 'id_users' est la clé étrangère
+    }
 }
