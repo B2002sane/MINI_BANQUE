@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Création de Compte - Fast Money</title>
     <link rel="stylesheet" href="{{ asset('css/style_register2.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
    
 </head>
 <body>
@@ -73,6 +75,9 @@
                 <div class="form-group">
                     <label for="password">Mots de Passe</label>
                     <input type="password" id="password" name="password" value="" required>
+                    <span id="togglePassword" class="eye-icon" onclick="togglePassword()">
+                        <i class="bi bi-eye-slash-fill" style="cursor: pointer;"></i>
+                    </span>
                     <span class="text-red-500" id="passwordError"></span>
                 </div>
 
@@ -136,6 +141,22 @@ setTimeout(function() {
         alert.style.display = 'none';
     }
 }, 10000);
+
+function togglePassword() {
+    const passwordInput = document.getElementById('password');
+    const toggleIcon = document.getElementById('togglePassword').querySelector('i');
+
+    if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        toggleIcon.classList.remove('bi-eye-slash-fill');
+        toggleIcon.classList.add('bi-eye');
+    } else {
+        passwordInput.type = 'password';
+        toggleIcon.classList.remove('bi-eye');
+        toggleIcon.classList.add('bi-eye-slash-fill');
+    }
+}
+
     </script>
 </body>
 </html>

@@ -101,3 +101,11 @@ input {
     opacity: 0.5; /* Réduit l'opacité */
     cursor: not-allowed; /* Change le curseur pour montrer qu'il n'est pas cliquable */
 }
+.eye-icon {
+    position: absolute;
+   left: 1230px;
+    top: 645px;
+  
+    cursor: pointer;
+    font-size: 1em; /* Ajuste la taille si nécessaire */
+}

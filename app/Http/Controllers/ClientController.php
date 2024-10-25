@@ -93,4 +93,7 @@ class ClientController extends Controller
         return redirect()->route('login')->with('success', 'Compte créé avec succès');
 
     }
+
+
+    
 }

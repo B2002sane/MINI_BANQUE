@@ -10,9 +10,12 @@ Route::get('/', function () {
 });
 
 
-Route::get('/register2', function () {
-    return view('register2');
+Route::get('/dashbord_client', function () {
+    return view('auth.dashbord_client');
 });
+
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
