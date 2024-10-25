@@ -18,38 +18,32 @@
             </div>
         </div>
 
-        <h5 class="form-title">FAIRE UN RETRAIT D'ARGENT</h5>
+        <h5 class="form-title">FAIRE UN DEPOT D'ARGENT</h5>
 
-        <form id="realTimeForm" class="needs-validation" method="POST" action="{{ route('retrait.submit') }}" novalidate>
+        <form id="realTimeForm" class="needs-validation" method="POST" action="{{ route('depot.submit') }}" novalidate>
         @csrf  <!-- Protection CSRF obligatoire -->
 
             <div id="inputs">
             <div class="mb-4">
                 <label for="telephone" class="form-label"><b>NUMERO DU CLIENT</b></label>
-                <input type="tel" id="telephone" name="telephone" class="form-control" pattern="[0-9]{9}" value ="{{ old('telephone') }}" placeholder="7XXXXXXXX" required>
+                <input type="tel" id="telephone" name="telephone" class="form-control" pattern="[0-9]{9}" placeholder="7XXXXXXXX" required>
                 <div class="invalid-feedback">
                     Le numéro doit contenir exactement 9 chiffres.
                 </div>
                 <div class="valid-feedback">
                     Numéro valide !
                 </div>
-                @error("telephone")
-                {{ $message }}
-                @enderror
             </div>
 
             <div class="mb-4">
                 <label for="montant" class="form-label">MONTANT</label>
-                <input type="number" id="montant" class="form-control" name="montant" min="500" value ="{{ old('montant') }}" placeholder="" required>
+                <input type="number" id="montant" class="form-control" name="montant" min="500" placeholder="saisir le montant" required>
                 <div class="invalid-feedback">
-                    Vous ne pouvez retirer moins de 500
+                    Montant minimal 500 francs
                 </div>
                 <div class="valid-feedback">
                     Montant valide !
                 </div>
-                @error("montant")
-                {{ $message }}
-                @enderror
             </div>
             </div>
 
@@ -71,7 +65,7 @@
         @if (session('success'))
             Swal.fire({
                 icon: 'success',
-                title: 'Retrait effectué avec succès !',
+                title: 'Depot effectué avec succès !',
                 text: 'Le montant a été retiré de votre compte.',
                 confirmButtonText: 'Retour à l\'accueil',
                 confirmButtonColor: '#3085d6',

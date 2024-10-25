@@ -16,6 +16,7 @@ class Transaction extends Model
         'type',
         'status',
         'frais',
+        'expediteur',
     ];
 
     // Relation avec l'utilisateur

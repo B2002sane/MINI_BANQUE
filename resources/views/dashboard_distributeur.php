@@ -256,7 +256,7 @@
                     </a>
                 </div>
                     <div class="col-6 col-md-4">
-                    <a href="{{ url('/retrait') }}" class="action-button w-100 text-decoration-none">
+                    <a href="{{ url('retrait') }}" class="action-button w-100 text-decoration-none">
                             <div class="icon-circle">
                                 <i class="fas fa-arrow-down"></i>
                             </div>

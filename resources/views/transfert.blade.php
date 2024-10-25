@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retrait d'Argent</title>
+    <title>Transfert d'Argent</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/retrait.css') }}">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -18,9 +18,9 @@
             </div>
         </div>
 
-        <h5 class="form-title">FAIRE UN RETRAIT D'ARGENT</h5>
+        <h5 class="form-title">FAIRE UN TRANSFERT D'ARGENT</h5>
 
-        <form id="realTimeForm" class="needs-validation" method="POST" action="{{ route('retrait.submit') }}" novalidate>
+        <form id="realTimeForm" class="needs-validation" method="POST" action="{{ route('transfert.submit') }}" novalidate>
         @csrf  <!-- Protection CSRF obligatoire -->
 
             <div id="inputs">
@@ -63,7 +63,7 @@
             Avec FAST MONEY sa khaliss yay borome
         </footer>
     </div>
-    <script src=" {{ asset('js/retrait.js') }}"></script>
+    <script src=" {{ asset('js/transfert.js') }}"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script>
@@ -71,7 +71,7 @@
         @if (session('success'))
             Swal.fire({
                 icon: 'success',
-                title: 'Retrait effectué avec succès !',
+                title: 'transfert effectué avec succès !',
                 text: 'Le montant a été retiré de votre compte.',
                 confirmButtonText: 'Retour à l\'accueil',
                 confirmButtonColor: '#3085d6',

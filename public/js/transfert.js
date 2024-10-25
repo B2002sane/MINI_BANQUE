@@ -22,11 +22,11 @@ function validateMontant(input) {
     if (input.value === '') {
         input.classList.add('is-invalid');  // Champ vide : erreur
         input.nextElementSibling.textContent = "Le champ montant est obligatoire.";
-    } else if (input.value < 500) {
+    } else if (input.value < 50) {
         input.classList.add('is-invalid');  // Montant trop petit
-        input.nextElementSibling.textContent = "Montant minimal : 500 francs";
+        input.nextElementSibling.textContent = "Montant minimal : 50 francs";
     } else {
-        let frais = input.value * 0.01;
+        let frais = input.value * 0.02;
         input.classList.add('is-valid');
         input.nextElementSibling.nextElementSibling.textContent = "Frais: " + frais.toFixed(2) + " F CFA";
     }
