@@ -35,4 +35,14 @@ class User extends Authenticatable
         'updated_at' => 'datetime',
     ];
 
+
+    public function transactions(){
+        return $this->hasMany(Transaction::class, 'id_users');
+    }
+
+    public function compte()
+{
+    return $this->hasOne(Compte::class, 'id_users');
+}
+
 }

@@ -248,21 +248,22 @@
                 <!-- Actions Grid -->
                 <div class="row g-4 mb-4">
                 <div class="col-6 col-md-4">
-                    <a href="{{ url('/form') }}" class="action-button w-100 text-decoration-none">
+                    <a href="/depot" class="action-button w-100 text-decoration-none">
                         <div class="icon-circle">
                             <i class="fas fa-wallet"></i>
                         </div>
                         <div class="text-center fw-bold">DEPOT</div>
                     </a>
                 </div>
-                    <div class="col-6 col-md-4">
-                        <button class="action-button w-100">
-                            <div class="icon-circle">
+                <div class="col-6 col-md-4">
+                    <a href="/retrait" class="action-button w-100 text-decoration-none">
+                        <div class="icon-circle">
                                 <i class="fas fa-arrow-down"></i>
-                            </div>
-                            <div class="text-center fw-bold">RETRAIT</div>
-                        </button>
-                    </div>
+                                </div>
+                        <div class="text-center fw-bold">RETRAIT</div>
+                    </a>
+                </div>
+                      
                     <div class="col-6 col-md-4">
                         <button class="action-button w-100">
                             <div class="icon-circle">

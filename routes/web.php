@@ -1,6 +1,6 @@
 <?php
 
-
+use App\Http\Controllers\TransactionController;
 use App\Http\Controller\inscription_clientController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
@@ -68,6 +68,29 @@ Route::middleware('auth')->group(function () {
 
 Route::resource('clients', ClientController::class);
 Route::post('/clients/{id}/bloquer', [ClientController::class, 'bloquer'])->name('clients.bloquer');
+
+
+
+//******************************************************************** */
+Route::post('/retrait', [TransactionController::class, 'retrait'])->name('retrait.submit');
+
+Route::post('/depot', [TransactionController::class, 'depot'])->name('depot.submit');
+
+Route::post('/tranfert', [TransactionController::class, 'transfert'])->name('transfert.submit');
+
+Route::get('/retrait', function (){
+    return view('retrait');
+});
+
+Route::get('/depot', function (){
+    return view('depot');
+});
+
+Route::get('/transfert', function (){
+    return view('transfert');
+})->name('transfert');
+
+/********************************************************************* */
 
 
 
