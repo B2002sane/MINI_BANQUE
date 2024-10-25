@@ -22,5 +22,6 @@ Route ::get('/add/utilisateur',[UtilisateurController::class,'loadAddUtilisateur
 Route ::post('/add/utilisateur',[UtilisateurController::class,'AddUtilisateur'])->name('AddUtilisateur');
 Route::get('/edit/{id}',[UtilisateurController::class,'loadEditForm']);
 Route::get('/delete/{id}',[UtilisateurController::class,'deleteUtilisateur']);
+Route::delete('/delete/{id}', [UtilisateurController::class, 'deleteUtilisateur'])->name('deleteUtilisateur');
 Route ::post('/edit/utilisateur',[UtilisateurController::class,'EditUtilisateur'])->name('EditUtilisateur');
 require __DIR__.'/auth.php';
