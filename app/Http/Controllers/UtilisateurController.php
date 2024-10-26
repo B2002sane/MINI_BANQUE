@@ -126,14 +126,20 @@ class UtilisateurController extends Controller
                 ->withErrors(['error' => 'Erreur lors de la création : ' . $e->getMessage()]);
         }
     }
-    public function deleteUtilisateur($id){
-        try{
-         UtilisateurModel::where('id',$id)->delete();
-         return redirect('/utilisateurs')->with('success' ,'Distributeur supprimé avec succés');
- 
-        }catch(\Exception $e){
-         return redirect('/utilisateurs')->with ('fail',$e->getMessage());
- 
-        }
-     }
+    public function deleteUtilisateur($id)
+{
+    try {
+        $utilisateur = UtilisateurModel::findOrFail($id);
+        
+        // Supprimer les comptes associés (si applicable)
+        CompteModel::where('id_utilisateur', $id)->delete();
+
+        // Supprimer l'utilisateur
+        $utilisateur->delete();
+
+        return response()->json(['success' => 'Utilisateur supprimé avec succès']);
+    } catch (\Exception $e) {
+        return response()->json(['error' => 'Erreur lors de la suppression : ' . $e->getMessage()], 500);
+    }
+}
 }

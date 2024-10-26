@@ -12,7 +12,7 @@ use Illuminate\View\View;
 class AuthenticatedSessionController extends Controller
 {
     /**
-     * Display the login view.
+     * Affiche la vue de connexion.
      */
     public function create(): View
     {
@@ -20,26 +20,40 @@ class AuthenticatedSessionController extends Controller
     }
 
     /**
-     * Handle an incoming authentication request.
+     * Gère une demande d'authentification entrante.
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        // Authentifie l'utilisateur
         $request->authenticate();
 
+        // Régénère la session pour éviter les attaques de fixation de session
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard', absolute: false));
+        // Récupère le rôle de l'utilisateur authentifié
+        $role = Auth::user()->role;
+
+        // Redirige en fonction du rôle de l'utilisateur
+        switch ($role) {
+            case 'client':
+                return redirect()->route('client');
+            case 'distributeur':
+                return redirect()->route('distributeur');
+            case 'agent':
+                return redirect()->route('agent');
+            default:
+                return redirect()->route('dashboard'); // Route par défaut si le rôle n'est pas reconnu
+        }
     }
 
     /**
-     * Destroy an authenticated session.
+     * Déconnecte l'utilisateur authentifié et détruit la session.
      */
     public function destroy(Request $request): RedirectResponse
     {
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();
-
         $request->session()->regenerateToken();
 
         return redirect('/');
