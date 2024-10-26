@@ -11,7 +11,7 @@ Agents :
 Création de comptes pour les clients et distributeurs.
 Modification, blocage ou déblocage de comptes.
 Créditer les comptes distributeurs.
-Annuler des transactions clients.
+
 
 Distributeurs :
 
