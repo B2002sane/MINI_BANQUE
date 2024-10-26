@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,7 +6,7 @@
     <title>Créditer un Distributeur</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
+       body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0; /* Ajout d'un fond pour une meilleure visibilité */
         }
@@ -42,8 +41,16 @@
             font-weight: bold;
             margin-bottom: 30px;
         }
+        .input-container {
+            display: flex;
+            flex-direction: column; /* Aligne les champs de saisie verticalement */
+            justify-content: center; /* Centre verticalement */
+            align-items: center; /* Centre horizontalement */
+            flex: 1; /* Prend tout l'espace disponible */
+        }
         .input-group {
-            margin-bottom: 20px;
+            width: 100%; /* Prend toute la largeur disponible */
+            margin-bottom: 20px; /* Espacement entre les inputs */
         }
         .btn {
             width: 120px;
@@ -67,15 +74,10 @@
             margin-top: 20px;
             color: #555;
         }
-        .input-container {
-            flex: 1; /* Permet de prendre tout l'espace disponible */
-            display: flex;
-            align-items: center; /* Centre verticalement les inputs */
-            justify-content: center; /* Centre horizontalement les inputs */
-        }
         .button-container {
             margin-top: 30px; /* Espacement entre les champs et les boutons */
         }
+
     </style>
 </head>
 <body>
@@ -107,27 +109,24 @@
     
     <div class="form-container">
         <h2 class="form-title">CRÉDITER UN DISTRIBUTEUR</h2>
-        <div class="input-container">
-            <form action="{{ route('crediter') }}" method="POST" style="width: 100%;">
-                @csrf
-                <div class="row mb-4">
-                    <div class="col">
-                        <label for="distributor-number" class="form-label">Numéro du Distributeur</label>
-                        <input type="text" id="distributor-number" name="distributor_number" class="form-control" placeholder="7XXXXXXX" required>
-                    </div>
-                    <div class="col">
-                        <label for="amount" class="form-label">Montant</label>
-                        <input type="number" id="amount" name="amount" class="form-control" required oninput="validateAmount()">
-                        <div id="error-message" class="error-message">Montant invalide</div>
-                    </div>
+        <form action="{{ route('crediter') }}" method="POST">
+            @csrf
+            <div class="row mb-4">
+                <div class="col">
+                    <label for="distributor-number" class="form-label">Numéro du Distributeur</label>
+                    <input type="text" id="distributor-number" name="distributor_number" class="form-control" placeholder="7XXXXXXX" required>
                 </div>
-            </form>
-        </div>
-        
-        <div class="button-container d-flex justify-content-between" style="margin-top: auto;">
-            <button type="submit" class="btn btn-validate">VALIDER</button>
-            <button type="button" class="btn btn-cancel" onclick="window.history.back();">ANNULER</button>
-        </div>
+                <div class="col">
+                    <label for="amount" class="form-label">Montant</label>
+                    <input type="number" id="amount" name="amount" class="form-control" required oninput="validateAmount()">
+                    <div id="error-message" class="error-message">Montant invalide</div>
+                </div>
+            </div>
+            <div class="button-container d-flex justify-content-between">
+                <button type="submit" class="btn btn-validate">VALIDER</button>
+                <button type="button" class="btn btn-cancel" onclick="window.history.back();">ANNULER</button>
+            </div>
+        </form>
     </div>
 </div>
 

@@ -132,22 +132,22 @@
                 <div class="form-grid">
                     <div class="form-group">
                         <label for="prenom">Prenom</label>
-                        <input type="text" id="prenom" name="prenom" value="{{$utilisateur->prenom}}" required>
+                        <input type="text" id="prenom" name="prenom" value="{{$utilisateur->prenom}}" >
                         <span class="text-red-500" id="prenomError"></span>
                     </div>
                     <div class="form-group">
                         <label for="adresse">Adresse</label>
-                        <input type="text" id="adresse" name="adresse" value="{{$utilisateur->Adresse}}" required>
+                        <input type="text" id="adresse" name="adresse" value="{{$utilisateur->Adresse}}" >
                         <span class="text-red-500" id="adresseError"></span>
                     </div>
                     <div class="form-group">
                         <label for="nom">Nom</label>
-                        <input type="text" id="nom" name="nom" value="{{$utilisateur->nom}}" required>
+                        <input type="text" id="nom" name="nom" value="{{$utilisateur->nom}}" >
                         <span class="text-red-500" id="nomError"></span>
                     </div>
                     <div class="form-group">
                         <label for="cni">Numero CNI</label>
-                        <input type="text" id="cni" name="cni" value="{{$utilisateur->cni}}" required>
+                        <input type="text" id="cni" name="cni" value="{{$utilisateur->cni}}" >
                         <span class="text-red-500" id="cniError"></span>
                     </div>
                     <div class="form-group">
@@ -162,12 +162,12 @@
                     </div>
                     <div class="form-group">
                         <label for="telephone">Numero de Telephone</label>
-                        <input type="number" id="telephone" name="telephone" value="{{$utilisateur->telephone}}" required>
+                        <input type="number" id="telephone" name="telephone" value="{{$utilisateur->telephone}}" >
                         <span class="text-red-500" id="telephoneError"></span>
                     </div>
                     <div class="form-group">
                         <label for="password">Mots de Passe</label>
-                        <input type="password" id="password" name="password" value="{{$utilisateur->password}}" required>
+                        <input type="password" id="password" name="password" value="{{$utilisateur->password}}" >
                         <span class="text-red-500" id="passwordError"></span>
                     </div>
                 </div>
