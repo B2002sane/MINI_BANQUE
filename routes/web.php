@@ -21,7 +21,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route ::get('/utilisateurs',[UtilisateurController::class,'loadAllUtilisateurs'] );
+Route ::get('/utilisateurs',[UtilisateurController::class,'loadAllUtilisateurs'])->name('loadAllUtilisateurs');
 Route ::get('/add/utilisateur',[UtilisateurController::class,'loadAddUtilisateurForm'] );
 Route ::post('/add/utilisateur',[UtilisateurController::class,'AddUtilisateur'])->name('AddUtilisateur');
 Route::get('/edit/{id}',[UtilisateurController::class,'loadEditForm']);

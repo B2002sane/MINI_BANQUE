@@ -173,7 +173,7 @@
                 <div class="buttons">
                     <button type="submit" id="submitBtn" class="btn btn-primary">{{ __('Enregistrer') }}</button>
                     <button type="button" class="btn btn-danger">
-                        <a class="lien" href="{{ route('login') }}">{{ __('se connecter') }}</a>
+                        <a class="lien" href="{{ route('loadAllUtilisateurs') }}">{{ __('Retour') }}</a>
                     </button>
                 </div>
             </div>
