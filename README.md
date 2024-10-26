@@ -1,66 +1,116 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+MiniBank
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Description du projet
 
-## About Laravel
+MiniBank est une plateforme web de gestion de transactions d'argent conçue pour une petite structure de transfert d'argent. Cette solution permet aux utilisateurs de réaliser des dépôts, des retraits, et des transferts d'argent de manière sécurisée. Elle offre également des fonctionnalités spécifiques pour les agents et distributeurs, leur permettant de gérer les comptes des clients et de suivre leurs transactions.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+Fonctionnalités principales :
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Agents :
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Création de comptes pour les clients et distributeurs.
+Modification, blocage ou déblocage de comptes.
+Créditer les comptes distributeurs.
+Annuler des transactions clients.
 
-## Learning Laravel
+Distributeurs :
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Effectuer des dépôts et des retraits pour les clients.
+Consulter leur solde et suivre leurs transactions.
+Annuler des transactions.
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Clients :
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Gérer leurs comptes (création, modification).
+Transférer de l'argent à d'autres utilisateurs.
+Voir leur solde et historique des transactions.
+Demander une carte et effectuer des transactions via un QR code.
 
-## Laravel Sponsors
+Architecture du projet
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+Le projet est basé sur un modèle MVC (Model-View-Controller) utilisant le framework Laravel 11 pour gérer les différentes fonctionnalités. L'application est découpée en plusieurs classes, représentées dans un diagramme UML ( pour le diagrame de classe https://drive.google.com/file/d/1kWDm2HYNcxu_1hn1gvMk2Cts8EMBFrOu/view?usp=sharing   et pour le diagramme de sequence https://drive.google.com/file/d/1Yd96XVeYvn55qLTyuYCUnwVFoRIhWkO0/view?usp=sharing .
 
-### Premium Partners
+Technologies utilisées :
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Framework : Laravel 11
 
-## Contributing
+Front-end : HTML, CSS, JavaScript
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Base de données : MySQL
 
-## Code of Conduct
+Sécurité : Authentification avec Laravel Breeze
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+Autres : Websocket pour les transactions en temps réel
 
-## Security Vulnerabilities
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Installation et utilisation
 
-## License
+PHP >= 8.0
+Composer
+MySQL
+Node.js et npm
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Utilisation de l'application
+
+1. Agent
+L'agent est un utilisateur avec des privilèges d'administration qui gère les comptes des clients et des distributeurs. Voici les actions détaillées qu'un agent peut effectuer sur la plateforme MiniBank :
+
+Connexion : L'agent se connecte à l'application avec ses identifiants personnels (Numero de Telephone et mot de passe).
+
+Une fois connecté, l'agent accède à un tableau de bord contenant les actions qu'il peut entreprendre sur les comptes des utilisateurs.
+Création de comptes :
+
+L'agent peut créer un compte pour un client ou un distributeur en saisissant leurs informations personnelles : nom, prénom, numéro de téléphone, photo, adresse, numéro de carte d'identité, et autres informations nécessaires.
+Une fois le compte créé, un identifiant unique est généré pour l'utilisateur.
+Modification et gestion des comptes :
+
+L'agent peut modifier les informations d'un utilisateur existant (par exemple, changer une adresse ou un numéro de téléphone).
+Il peut également bloquer un compte si nécessaire, par exemple en cas de fraude ou de demande d'annulation. Un compte bloqué ne peut plus effectuer de transactions jusqu'à ce qu'il soit débloqué.
+Créditer un compte distributeur :
+
+L'agent a le pouvoir de créditer les comptes des distributeurs. Cela signifie qu'il peut ajouter un montant au compte d'un distributeur, ce qui permettra à ce dernier d'effectuer des transactions pour le compte de ses clients.
+Annuler des transactions clients :
+
+Si une transaction réalisée par un client est incorrecte ou doit être annulée pour une raison spécifique, l'agent peut annuler la transaction. Une annulation peut être demandée par le client ou décidée par l'agent en fonction de la situation.
+2. Distributeur
+Le distributeur agit comme un intermédiaire entre la plateforme et les clients pour les opérations de dépôt et de retrait. Voici comment un distributeur utilise l'application :
+
+Connexion : Le distributeur se connecte à son compte avec ses identifiants (numéro de téléphone et mot de passe).
+
+Il accède à un tableau de bord où il peut consulter son solde, voir son historique de transactions et effectuer des opérations pour les clients.
+Effectuer des dépôts et retraits :
+
+Lorsqu'un client veut déposer de l'argent, le distributeur entre les détails du compte du client (numéro de compte ou QR code), puis enregistre le dépôt. Le solde du client est immédiatement mis à jour.
+Pour les retraits, le distributeur doit vérifier que le compte client n'est pas bloqué et s'assurer que le solde est suffisant avant d'effectuer la transaction.
+Consulter le solde et l'historique :
+
+Le distributeur peut consulter son propre solde (qui est crédité de 1% de chaque transaction effectuée) ainsi que son historique complet de transactions.
+
+3. Client
+Le client utilise l'application pour gérer ses finances personnelles, effectuer des transferts, et consulter son solde et ses transactions. Voici les principales fonctionnalités :
+
+Connexion : Le client se connecte avec ses identifiants (numéro de téléphone et mot de passe) et accède à un tableau de bord simple et intuitif.
+
+Consulter le solde :
+
+Une fois connecté, le client peut voir son solde directement sur la page d'accueil. Il peut également choisir de masquer son solde pour des raisons de confidentialité.
+Transférer de l'argent :
+
+Le client peut transférer de l'argent à un autre utilisateur de la plateforme en entrant le numéro de compte du destinataire .
+Chaque transfert est soumis à une commission de 2% qui est automatiquement prélevée sur le montant transféré.
+Une fois la transaction validée, le solde est mis à jour en temps réel .
+Voir l'historique des transactions :
+
+Le client a accès à l'historique complet de ses transactions : dépôts, retraits, et transferts.
+Chaque transaction est détaillée avec la date, le montant, le type (dépôt, retrait, transfert) .
+
+Utilisation du QR code :
+
+Chaque client possède un QR code unique qui contient son numéro de compte. Ce QR code peut être scanné par un distributeur pour faciliter les transactions de dépôt ou de retrait, évitant ainsi l'entrée manuelle du numéro de compte.
+
+
+
+Auteur
+
+Projet développé par Anta Maguette Faye,Yaye Fatou Kane, Fatou Bintou Sané, Abou Abdrahmane Sow et Ousmane Fall dans le cadre d'une formation en développement web.
+
