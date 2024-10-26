@@ -17,7 +17,7 @@ Distributeurs :
 
 Effectuer des dépôts et des retraits pour les clients.
 Consulter leur solde et suivre leurs transactions.
-Annuler des transactions.
+
 
 Clients :
 
