@@ -5,16 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Fast Money</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-    <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fast Money</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
     <style>
+        p{
+            font-size:40px;
+        }
         .page-container {
             min-height: 100vh;
             display: flex;
@@ -79,6 +75,7 @@
             min-height: 700px;
             position: relative;
             top: 50px;
+           
         }
 
         .monlogo {
@@ -132,6 +129,40 @@
     text-decoration: none;
     color: inherit;
 }
+.balance-input {
+            font-size: 24px;
+            border: none;
+            background: transparent;
+            text-align: center;
+            width: 200px;
+            letter-spacing: 2px;
+        }
+        .balance-display {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 10px;
+            border: 1px solid #dee2e6;
+        }
+
+        .logout-btn {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 16px;
+            margin-top: 600px;
+            margin-left:60px;
+        }
 
         /* Responsive Designs */
         @media (max-width: 1200px) {
@@ -225,12 +256,12 @@
             <img src="{{ asset('images/image_fast_money.png') }}" alt="Fast Money Logo">
             </div>
             <!-- Bouton déconnexion en bas -->
-            <div class="deconnexion-btn">
-                <button>
-                    <i class="fas fa-power-off"></i>
-                    <div>Déconnexion</div>
-                </button>
-            </div>
+            <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button class="logout-btn">
+                Déconnexion <i class="bi bi-arrow-bar-right"></i>
+            </button>
+        </form>
         </div>
 
         <!-- Contenu principal -->
@@ -240,10 +271,17 @@
                 <div class="text-center mb-5">
                     <p class="text-muted mb-2">VOTRE SOLDE</p>
                     <h2 class="display-6 fw-bold">
-                        100.000.000
-                        <i class="fas fa-eye ms-2 text-muted" style="font-size: 0.7em;"></i>
+                        <div class="balance-display">
+                    <input type="text" id="balance" value="••••••••••••••" class="balance-input" readonly>
+                        <span id="toggle-eye" class="eye-icon" onclick="toggleBalance()">
+                            <i class="bi bi-eye-slash-fill" id="eye-icon" style="cursor: pointer; color: black;"></i>
+                        </span>
+                        </div>
                     </h2>
                 </div>
+               
+
+               
 
                 <!-- Actions Grid -->
                 <div class="row g-4 mb-4">
@@ -264,14 +302,6 @@
                     </a>
                 </div>
                       
-                    <div class="col-6 col-md-4">
-                        <button class="action-button w-100">
-                            <div class="icon-circle">
-                                <i class="fas fa-exchange-alt"></i>
-                            </div>
-                            <div class="text-center fw-bold">TRANSFERT</div>
-                        </button>
-                    </div>
                     <div class="col-6 col-md-4">
                         <button class="action-button w-100">
                             <div class="icon-circle">
@@ -299,5 +329,27 @@
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        let isBalanceHidden = true;
+        const realBalance = "{{ Auth::user()->compte->solde  }}";
+
+        function toggleBalance() {
+            const balanceInput = document.getElementById('balance');
+            const eyeIcon = document.getElementById('eye-icon');
+            
+            if (isBalanceHidden) {
+                balanceInput.value = realBalance;
+                eyeIcon.classList.remove('bi-eye-slash-fill');
+                eyeIcon.classList.add('bi-eye');
+            } else {
+                balanceInput.value = "••••••••••••••";
+                eyeIcon.classList.remove('bi-eye');
+                eyeIcon.classList.add('bi-eye-slash-fill');
+            }
+            isBalanceHidden = !isBalanceHidden;
+        }
+
+    </script>
 </body>
 </html>

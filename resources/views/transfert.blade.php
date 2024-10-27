@@ -11,7 +11,7 @@
 <body>
     <div class="container">
         <div class="header-logo">
-            <img src="{{ asset('images/fast.png') }}" alt="Fast Money Logo" class="img-fluid">
+            <img src="{{ asset('images/fast_money.png') }}" alt="Fast Money Logo" class="img-fluid">
             <div class="d-flex align-items-center">
                 <img src="https://via.placeholder.com/50" class="rounded-circle" alt="User Profile">
                 <span class="ms-2">Ronald Richards</span>
@@ -55,7 +55,7 @@
 
             <div class="btn-group">
                 <button type="submit" class="btn btn-primary">VALIDER</button>
-                <button type="reset" class="btn btn-danger">ANNULER</button>
+                <a href="{{ route('client.dashboard') }}" class="btn btn-danger ">ANNULER</a>      
             </div>
         </form>
 

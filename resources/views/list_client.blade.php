@@ -7,51 +7,40 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
     <style>
         .monlogo img{
             width: 300px;
-            margin:none;
         }
         .text-end{
             position:relative;
             bottom:200px;
             right:200px;
-
         }
+        
     </style>
 </head>
 <body>
-
-        <div class="monlogo">
-                <img src="{{ asset('images/image_fast_money.png') }}" alt="Fast Money Logo">
-                <div class="text-end mt-4">
-                        <a href="/dashboard_agent" class="btn btn-info me-2">RETOUR</a>
-                </div>
-            <div class="search">
-			
-		</div>
-		
-            </div>
-            <div class="qr-container mt-3">
-            <div class="qr-code">
-                <div id="qrcode"></div>
-            </div>
-        </div>
-
-<div class="container "> <!-- Conteneur ajouté ici -->
-<label for="chercher">
-				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"/></svg>
-				<input type="text" id="chercher">
-			</label>
-            @if (session('success'))
+           @if (session('success'))
                 <div class="alert alert-success">
                     {{ session('success') }}
                 </div>
             @endif
-    <h1 class="text-center m-5">LISTE DES CLIENTS</h1>
+            <div class="monlogo">
+                <img src="{{ asset('images/fast_money.png') }}" alt="Fast Money Logo">
+                <div class="text-end "> 
+                <a href="{{ route('agent.dashboard') }}" class="btn btn-info me-2">RETOUR</a>        
+            </div>
+            
+            <div class="search">
+            <div class="container "> <!-- Conteneur ajouté ici -->
+            <label for="chercher">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 18a7.952 7.952 0 0 0 4.897-1.688l4.396 4.396 1.414-1.414-4.396-4.396A7.952 7.952 0 0 0 18 10c0-4.411-3.589-8-8-8s-8 3.589-8 8 3.589 8 8 8zm0-14c3.309 0 6 2.691 6 6s-2.691 6-6 6-6-2.691-6-6 2.691-6 6-6z"/></svg>
+				<input type="text" id="chercher">
+			</label>
+           
+    <h1 class="text-center m-3">LISTE DES CLIENTS</h1>
     <div class="table-responsive">
         <table class="table table-striped" >
             <thead>
@@ -63,6 +52,7 @@
                     <th>Adresse</th>
                     <th>Date Naissance</th>
                     <th>CNI</th>
+                    <th>STATUT</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -88,7 +78,15 @@
                         <td>{{ $client->adresse }}</td>
                         <td>{{ $client->date_naissance }}</td>
                         <td>{{ $client->cni }}</td>
-                    
+                        <td>
+                            <!-- Afficher le statut du compte -->
+                            @if($client->compte)
+                                {{ $client->compte->statut == 1 ? 'Actif' : 'Bloqué' }}
+                            @else
+                                N/A <!-- Si le client n'a pas de compte -->
+                            @endif
+                        </td>
+                                
 
                         <td>
                             <div class="btn-group">
@@ -132,6 +130,18 @@
                                     </button>
                                     </button>
                                 </form>
+                                <form action="{{ route('clients.debloquer', $client->id) }}" method="POST" class="d-inline">
+                                    @csrf
+                                    <button type="submit" 
+                                            class="btn btn-success m-2"
+                                            onclick="return confirm('Êtes-vous sûr de vouloir debloquer ce client ?')">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-check-fill" viewBox="0 0 16 16">
+                                                <path fill-rule="evenodd" d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
+                                                <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6"/>
+                                            </svg>
+                                    </button>
+                                    </button>
+                                </form>
 
                             </div>
                         </td>
@@ -155,21 +165,8 @@
                 $(this).toggle(matchFound);
             });
         });
-    });
-
-
-      
-        // Générer le code QR
-                var qrcode = new QRCode(document.getElementById("qrcode"), {
-            text: "{{ $client->telephone }}",
-            width: 256,
-            height: 256
-        });
-        
+    }); 
 </script>
-
-
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>

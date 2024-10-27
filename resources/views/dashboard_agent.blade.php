@@ -141,6 +141,21 @@
                 height: 40px;
             }
         }
+        .logout-btn {
+            background-color: #d32f2f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 16px;
+            margin-top: 600px;
+            margin-left:60px;
+        }
     </style>
 </head>
 <body>
@@ -150,12 +165,12 @@
             <div class="monlogo">
                 <img src="{{ asset('images/image_fast_money.png') }}" alt="Fast Money Logo">
             </div>
-            <div class="deconnexion-btn">
-                <button>
-                    <i class="fas fa-power-off"></i>
-                    <div>Déconnexion</div>
-                </button>
-            </div>
+            <form method="POST" action="{{ route('logout') }}">
+            @csrf
+            <button class="logout-btn">
+                Déconnexion <i class="bi bi-arrow-bar-right"></i>
+            </button>
+        </form>
         </div>
 
         <!-- Main Content -->
@@ -169,7 +184,7 @@
                     <div class="row g-4">
                         <!-- Compte Client -->
                         <div class="col-md-4">
-                            <a href="clients/create" class="action-button">
+                            <a href="{{ route('clients.create') }}" class="action-button">
                                 <div class="icon-circle">
                                     <i class="fas fa-user-plus"></i>
                                 </div>

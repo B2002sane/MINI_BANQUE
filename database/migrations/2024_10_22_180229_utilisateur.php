@@ -22,9 +22,6 @@ return new class extends Migration
             $table->enum('role',['agent','client','distributeur']);
             $table->string('photo', 255);
             $table->string('password',255);
-            $table->timestamp('date_creation');
-            $table->date('date_modification')->nullable();
-            $table->date('date_suppression')->nullable();
             $table->timestamps();
         });
     }

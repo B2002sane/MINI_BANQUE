@@ -194,7 +194,7 @@
 
                     <div class="text-center mt-4">
                         <button type="submit" class="btn btn-primary" id="submitBtn">Valider</button>
-                        <a href="{{ route('clients.index') }}" class="btn btn-danger ms-3">Annuler</a>
+                        <a href="{{ route('agent.dashboard') }}" class="btn btn-danger ms-3">Annuler</a>
                     </div>
                 </form>
             </div>

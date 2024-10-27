@@ -55,7 +55,7 @@
 
             <div class="btn-group">
                 <button type="submit" class="btn btn-primary">VALIDER</button>
-                <a href="/dashboard_distributeur" class="btn btn-danger ">ANNULER</a>
+                <a href="{{ route('distributeur.dashboard') }}" class="btn btn-danger ">ANNULER</a>
             </div>
         </form>
 

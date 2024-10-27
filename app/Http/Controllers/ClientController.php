@@ -9,15 +9,19 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class ClientController extends Controller
-{
-    public function index()
+{public function index()
     {
-        // Récupération des clients avec leurs comptes associés, paginés
-        $clients = Client::with('compte')->latest()->paginate(10);
+        // Récupération des clients avec leurs comptes associés, paginés,
+        // en filtrant par rôle 'client'
+        $clients = Client::with('compte')
+                         ->where('role', 'client') 
+                         ->latest()
+                         ->paginate(10);
     
         // Retourner la vue avec les clients paginés
         return view('list_client', compact('clients'));
     }
+    
     
 
     public function create()
@@ -169,6 +173,24 @@ public function bloquer($id)
 
         // Retourner un message de succès
         return redirect()->back()->with('success', 'Client bloqué avec succès.');
+    }
+
+    public function debloquer($id)
+    {
+        // Rechercher le client par son ID
+        $client = Client::find($id);
+
+        // Vérifier si le client existe
+        if (!$client) {
+            return redirect()->back()->with('error', 'Client non trouvé.');
+        }
+
+        // Mettre à jour le statut du compte
+        $client->compte->statut = 1; // Supposons que la relation est définie et que 'compte' est la relation avec le modèle Compte
+        $client->compte->save();
+
+        // Retourner un message de succès
+        return redirect()->back()->with('success', 'Client debloqué avec succès.');
     }
 
 

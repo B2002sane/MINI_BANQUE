@@ -2,11 +2,11 @@
 
 use App\Http\Controllers\TransactionController;
 use App\Http\Controller\inscription_clientController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\loginController;
 use App\Http\Controllers\ClientController;
-use App\Http\Controllers\ProfileController;
+//use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+
 
 /*Route::get('/', function () {
     return view('welcome');
@@ -26,17 +26,10 @@ Route::get('/inscription_client', function () {
     return view('inscription_client');
 });
 
-Route::get('/dashboard_distributeur', function () {
-    return view('dashboard_distributeur');
-});
 
-Route::get('/dashboard_client', function () {
-    return view('dashboard_client');
-});
 
-Route::get('/dashboard_agent', function () {
-    return view('dashboard_agent');
-});
+
+
 
 Route::get('/list_client', function () {
     return view('list_client');
@@ -50,9 +43,7 @@ Route::get('/crediter_distributeur', function () {
     return view('crediter_distributeur');
 })->name('crediter_distributeur');
 
-Route::get('/creerclient', function () {
-    return view('form_create_client');
-})->name('client.form');
+
 
 
 Route::get('/dashboard', function () {
@@ -60,14 +51,13 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
-Route::middleware('auth')->group(function () {
+/*Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+});*/
 
-Route::resource('clients', ClientController::class);
-Route::post('/clients/{id}/bloquer', [ClientController::class, 'bloquer'])->name('clients.bloquer');
+
 
 
 
@@ -78,45 +68,60 @@ Route::post('/depot', [TransactionController::class, 'depot'])->name('depot.subm
 
 Route::post('/tranfert', [TransactionController::class, 'transfert'])->name('transfert.submit');
 
-Route::get('/retrait', function (){
-    return view('retrait');
-});
 
-Route::get('/depot', function (){
-    return view('depot');
-});
 
-Route::get('/transfert', function (){
-    return view('transfert');
-})->name('transfert');
+
 
 /********************************************************************* */
 
 
 
+Route::get('/login', [loginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [loginController::class, 'login']);
+Route::post('/logout', [loginController::class, 'logout'])->name('logout');
 
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
-// Routes protégées pour chaque rôle
+// Redirections des tableaux de bord selon les rôles
 Route::middleware(['auth', 'role:agent'])->group(function () {
     Route::get('/agent/dashboard', function () {
-        return view('dashboard_agent');
+        return view('dashboard_agent'); // Vue à créer pour le tableau de bord agent
     })->name('agent.dashboard');
-});
+
+    Route::resource('clients', ClientController::class);
+    Route::post('/clients/{id}/bloquer', [ClientController::class, 'bloquer'])->name('clients.bloquer');
+    Route::post('/clients/{id}/debloquer', [ClientController::class, 'debloquer'])->name('clients.debloquer');
+
+    
+
+});    
 
 Route::middleware(['auth', 'role:client'])->group(function () {
     Route::get('/client/dashboard', function () {
-        return view('dashboard_client');
+        return view('dashboard_client'); // Vue à créer pour le tableau de bord client
     })->name('client.dashboard');
+
+    Route::get('/transfert', function (){
+        return view('transfert');
+    })->name('transfert');
+
 });
 
-Route::middleware(['auth', 'role:distributeur'])->group(function () {
+
+Route::middleware(['auth', 'role:distributeur'])->group(function () {    
     Route::get('/distributeur/dashboard', function () {
-        return view('dashboard_distributeur');
+        return view('dashboard_distributeur'); // Vue à créer pour le tableau de bord distributeur
     })->name('distributeur.dashboard');
+
+    Route::get('/retrait', function (){
+        return view('retrait');
+    });
+    
+    Route::get('/depot', function (){
+        return view('depot');
+    });
 });
 
 
-require __DIR__.'/auth.php';
+
+
+//require __DIR__.'/auth.php';
