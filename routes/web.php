@@ -1,7 +1,10 @@
 <?php
 
+
+use App\Http\Controllers\DistributeurController;
 use App\Http\Controllers\TransactionController;
-use App\Http\Controller\inscription_clientController;
+use App\Http\Controllers\historiqueTransactionsController;
+use App\Http\Controllers\InscriptionClientController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\ClientController;
 //use App\Http\Controllers\ProfileController;
@@ -13,8 +16,7 @@ use Illuminate\Support\Facades\Route;
 });*/
 
 
-Route::get('/register2', [ClientController::class, 'create'])->name('register2');
-Route::post('/register2', [ClientController::class, 'store'])->name('register2.store');
+Route::resource('register', InscriptionClientController::class);
 
 
 Route::get('/', function () {
@@ -62,11 +64,15 @@ Route::get('/dashboard', function () {
 
 
 //******************************************************************** */
+
+
 Route::post('/retrait', [TransactionController::class, 'retrait'])->name('retrait.submit');
 
 Route::post('/depot', [TransactionController::class, 'depot'])->name('depot.submit');
 
 Route::post('/tranfert', [TransactionController::class, 'transfert'])->name('transfert.submit');
+
+Route::resource('transactions', historiqueTransactionsController::class);
 
 
 
@@ -120,6 +126,24 @@ Route::middleware(['auth', 'role:distributeur'])->group(function () {
         return view('depot');
     });
 });
+
+
+
+
+/********************************************************************************************* */
+
+
+
+Route ::get('/utilisateurs',[DistributeurController::class,'loadAllUtilisateurs'])->name('loadAllUtilisateurs');
+Route ::get('/add/utilisateur',[DistributeurController::class,'loadAddUtilisateurForm'] )->name('loadAddUtilisateurForm');
+Route ::post('/add/utilisateur',[DistributeurController::class,'AddUtilisateur'])->name('AddUtilisateur');
+Route::get('/edit/{id}',[DistributeurController::class,'loadEditForm']);
+Route::delete('/delete/{id}', [DistributeurController::class, 'deleteUtilisateur'])->name('delete');
+Route ::post('/edit/utilisateur',[DistributeurController::class,'EditUtilisateur'])->name('EditUtilisateur');
+/*Route::post('/crediter', [CompteController::class, 'crediterDistributeur'])->name('crediter');
+Route::get('/crediter', function () {
+    return view('crediter');
+})->name('crediter');*/
 
 
 

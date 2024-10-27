@@ -65,6 +65,11 @@ class TransactionController extends Controller
         return redirect()->back()->with('success', 'Retrait effectué avec succès.');
     }
 
+
+    /*************************************Transfert********************************** */
+
+
+
     public function transfert(Request $request){
          // Validation des champs du formulaire
          $validated = $request->validate([
@@ -120,6 +125,10 @@ class TransactionController extends Controller
         return redirect()->back()->with('success', 'transfert effectué avec succès.');
     }
 
+
+ //**********************************************Depot******************** */   
+
+
     public function depot(Request $request)
     {
         // Validation des champs du formulaire
@@ -169,6 +178,7 @@ class TransactionController extends Controller
         // Retourner un message de succès
         return redirect()->back()->with('success', 'depot effectué avec succès.');
     }
+    
 
     public function index()
     {

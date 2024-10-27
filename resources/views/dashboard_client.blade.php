@@ -154,6 +154,21 @@
             position: fixed;
             bottom: 0;
         }
+        .profile-photo {
+            width: 100px;  /* Ajustez la largeur selon vos besoins */
+            height: 100px; /* Ajustez la hauteur selon vos besoins */
+            border-radius: 50%; /* Pour rendre l'image ronde */
+            object-fit: cover; /* Pour éviter la déformation de l'image */
+            position:relative;
+            left:1350px;
+            top:20px;
+        }
+        .profil{
+            position:relative;
+            left:1350px;
+            top:20px;
+            font-size:20px;
+        }
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -184,7 +199,22 @@
                 Déconnexion <i class="bi bi-arrow-bar-right"></i>
             </button>
         </form>
-    </div>
+        </div>
+        
+        @if(Auth::user()->photo)
+            <img src="{{ asset('storage/' . Auth::user()->photo) }}" alt="Photo de profil" class="profile-photo">
+        @else
+                <img class="profile-photo" 
+                src="{{ asset('images/user.png') }}" 
+                alt="Default">
+        @endif
+        <div class="profil">
+        <p>{{ Auth::user()->prenom }}</p>
+        <p>{{ Auth::user()->nom }}</p>
+        </div>
+        
+
+
 
     <div class="main-content">
         <div class="balance-section">
@@ -203,8 +233,10 @@
 
         <div class="features">
         <div class="feature" >
+                <a href="{{ route('transactions.index') }}">
                 <i class="bi bi-clock-history"></i>
                 <h3 class="feature-title">HISTORIQUE</h3>
+                </a>
             </div>
             <div class="feature" >
             <svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"   fill="currentColor" class="bi bi-qr-code-scan" viewBox="0 0 16 16">

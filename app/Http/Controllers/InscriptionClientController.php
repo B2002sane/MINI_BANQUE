@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Client;
 use Illuminate\Http\Request;
-use App\Models\Compte;
 use Illuminate\Support\Facades\DB;
+use App\Models\Client;
+use App\Models\Compte;
 
-class ClientController extends Controller
+class InscriptionClientController extends Controller
 {
-    /**
+        /**
      * Affiche le formulaire d'inscription
      */
     public function create()
@@ -59,9 +59,7 @@ class ClientController extends Controller
             'date_naissance' => $request->date_naissance,
             'role' => 'client',
             'password' => bcrypt($request->password),
-            'date_creation' => now(),
-            'date_modification' => now(),
-            'date_suppression' => now(),
+           
         ];
 
         // Gestion de l'upload de la photo si elle existe
@@ -78,22 +76,21 @@ class ClientController extends Controller
             'numeroCompte' => $this->generateUniqueAccountNumber(),
             'solde' => 0,
             'statut' => 1, // 1 pour actif
-            'date_creation' => now(),
-            'date_suppression' => null
+            
         ]);
         
         $compte->save();
 
         DB::commit();
         
-        session()->flash('success', 'Votre opération a été effectuée avec succès !');
+        session()->flash('success', 'Compte créé avec succès ,veuiller vous connecter');
 
         // Redirection avec message de succès
         
-        return redirect()->route('login')->with('success', 'Compte créé avec succès');
+        return view('auth/login');
+
 
     }
 
 
-    
 }

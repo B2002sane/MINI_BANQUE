@@ -278,10 +278,7 @@
                         </span>
                         </div>
                     </h2>
-                </div>
-               
-
-               
+                </div>     
 
                 <!-- Actions Grid -->
                 <div class="row g-4 mb-4">
@@ -304,10 +301,13 @@
                       
                     <div class="col-6 col-md-4">
                         <button class="action-button w-100">
+                        <a href="{{ route('transactions.index') }}">
                             <div class="icon-circle">
                                 <i class="fas fa-history"></i>
                             </div>
                             <div class="text-center fw-bold">HISTORIQUE</div>
+    
+                        </a> 
                         </button>
                     </div>
                     <div class="col-6 col-md-4">

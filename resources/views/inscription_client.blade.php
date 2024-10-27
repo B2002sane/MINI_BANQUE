@@ -11,29 +11,15 @@
    
 </head>
 <body>
-    @if(session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-@endif
+  
     <div class="container">
         <div class="logo">
             <img src="{{ asset('images/fast_money.png') }}" alt="Fast Money Logo">
         </div>
         <h1 class="form-title">CREATION DE COMPTE</h1>
        
-        <form  id="registrationForm" action="{{ ('registre2.store') }}" method="POST" enctype="multipart/form-data">
+        <form  id="registrationForm" action="{{ route('register.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-        
         
             <div class="formu">
             <div class="form-grid">

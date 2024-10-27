@@ -13,8 +13,7 @@
         <div class="header-logo">
             <img src="{{ asset('images/fast_money.png') }}" alt="Fast Money Logo" class="img-fluid">
             <div class="d-flex align-items-center">
-                <img src="https://via.placeholder.com/50" class="rounded-circle" alt="User Profile">
-                <span class="ms-2">Ronald Richards</span>
+               
             </div>
         </div>
 

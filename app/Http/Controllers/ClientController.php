@@ -9,7 +9,9 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
 class ClientController extends Controller
-{public function index()
+{
+    
+    public function index()
     {
         // Récupération des clients avec leurs comptes associés, paginés,
         // en filtrant par rôle 'client'
@@ -59,10 +61,14 @@ class ClientController extends Controller
             'date_naissance' => 'required|date|before:-18 years',
             'adresse' => 'required|min:3',
             'cni' => 'required|string|unique:users',
-            'photo' => 'required|string',
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'password' => 'required|min:8'
         ]);
     
+        
+        if ($request->hasFile('photo')) {
+            $validated['photo'] = $request->file('photo')->store('photos', 'public');
+        }
         // Hasher le mot de passe
         $validated['password'] = Hash::make($validated['password']);
     

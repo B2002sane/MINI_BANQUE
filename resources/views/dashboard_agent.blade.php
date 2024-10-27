@@ -194,7 +194,7 @@
 
                         <!-- Compte Distributeur -->
                         <div class="col-md-4">
-                            <a href="#" class="action-button">
+                            <a href="{{ route('loadAddUtilisateurForm') }}" class="action-button">
                                 <div class="icon-circle">
                                     <i class="fas fa-users"></i>
                                 </div>
@@ -214,11 +214,11 @@
 
                         <!-- Historique -->
                         <div class="col-md-4">
-                            <a href="#" class="action-button">
+                            <a href="{{ route('loadAllUtilisateurs') }}" class="action-button">
                                 <div class="icon-circle">
                                     <i class="fas fa-history"></i>
                                 </div>
-                                <div class="fw-bold">HISTORIQUE</div>
+                                <div class="fw-bold">LISTER  DISTRIBUTEURE</div>
                             </a>
                         </div>
 

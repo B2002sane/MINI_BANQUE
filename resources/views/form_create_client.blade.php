@@ -170,11 +170,11 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="photo">Photo</label>
-                                <input type="text" 
+                                <input type="file" 
                                        class="form-control" 
                                        id="photo" 
                                        name="photo" 
-                                       required>
+                                       accept="image/*">
                                 <div class="invalid-feedback">Une photo est requise.</div>
                             </div>
                         </div>
