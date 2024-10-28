@@ -211,7 +211,18 @@
         <div class="profil">
         <p>{{ Auth::user()->prenom }}</p>
         <p>{{ Auth::user()->nom }}</p>
+        <button class="btn btn-primary">
+        <a href="{{ route('clients.edit', ['client' => Auth::user()->id]) }}">Modifier le client</a>
+
+            Modifier profil
+        </button>
         </div>
+       
+
+
+
+
+
         
 
 

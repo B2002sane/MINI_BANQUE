@@ -15,6 +15,7 @@ function validatePhone(input) {
     }
 }
 
+
 // Fonction de validation pour le montant
 function validateMontant(input) {
     input.classList.remove('is-invalid');
@@ -35,15 +36,18 @@ function validateMontant(input) {
 // Sélection du formulaire et des champs
 const form = document.getElementById('realTimeForm');
 const telephoneInput = document.getElementById('telephone');
+const telephone2Input = document.getElementById('telephone2');
 const passwordInput = document.getElementById('montant');
 
 // Ajout d'événements de validation à chaque saisie
 telephoneInput.addEventListener('input', () => validatePhone(telephoneInput));
+telephone2Input.addEventListener('input', () => validatePhone(telephone2Input));
 passwordInput.addEventListener('input', () => validateMontant(passwordInput));
 
 // Empêcher l'envoi du formulaire si des champs sont invalides
 form.addEventListener('submit', (event) => {
     validatePhone(telephoneInput);
+    validatePhone(telephone2Input);
     validateMontant(montantInput);
 
     if (!form.checkValidity()) {

@@ -224,7 +224,7 @@
 
                         <!-- Annuler Transfert -->
                         <div class="col-md-4">
-                            <a href="#" class="action-button">
+                            <a href="{{  route('annuler') }} " class="action-button">
                                 <div class="icon-circle">
                                     <i class="fas fa-times"></i>
                                 </div>

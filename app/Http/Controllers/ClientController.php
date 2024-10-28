@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Client;
@@ -7,49 +6,40 @@ use App\Models\Compte;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Auth;
 
 class ClientController extends Controller
 {
     
     public function index()
     {
-        // Récupération des clients avec leurs comptes associés, paginés,
-        // en filtrant par rôle 'client'
         $clients = Client::with('compte')
                          ->where('role', 'client') 
                          ->latest()
                          ->paginate(10);
     
-        // Retourner la vue avec les clients paginés
         return view('list_client', compact('clients'));
     }
     
-    
-
     public function create()
     {
         return view('form_create_client');
     }
 
-
-
     private function generateUniqueAccountNumber()
     {
-        $length = 10; // Longueur du numéro de compte 
+        $length = 10; 
     
         do {
-            // Générer un numéro aléatoire de 10 chiffres
             $accountNumber = '';
             for ($i = 0; $i < $length; $i++) {
-                $accountNumber .= mt_rand(0, 9); // Ajoute un chiffre aléatoire
+                $accountNumber .= mt_rand(0, 9);
             }
-        } while (Compte::where('numeroCompte', $accountNumber)->exists()); // Vérifie si le numéro existe déjà
+        } while (Compte::where('numeroCompte', $accountNumber)->exists());
     
-        return $accountNumber; // Retourne le numéro unique
+        return $accountNumber;
     }
-    
-
-
     
     public function store(Request $request)
     {
@@ -57,7 +47,7 @@ class ClientController extends Controller
             'role' => 'required',
             'nom' => 'required|min:2',
             'prenom' => 'required|min:2',
-            'telephone' => 'required|regex:/^[0-9]{9}$/',
+            'telephone' => 'required|regex:/^[0-9]{9}$/|unique:users',
             'date_naissance' => 'required|date|before:-18 years',
             'adresse' => 'required|min:3',
             'cni' => 'required|string|unique:users',
@@ -65,139 +55,119 @@ class ClientController extends Controller
             'password' => 'required|min:8'
         ]);
     
-        
         if ($request->hasFile('photo')) {
             $validated['photo'] = $request->file('photo')->store('photos', 'public');
         }
-        // Hasher le mot de passe
+        
         $validated['password'] = Hash::make($validated['password']);
     
-        // Créer le client
-        $client = Client::create($validated);
+        try {
+            $client = Client::create($validated);
     
-        // Générer un numéro de compte unique
-        $numeroCompte = $this->generateUniqueAccountNumber();
+            $numeroCompte = $this->generateUniqueAccountNumber();
     
-        // Création du compte associé
-        $compte = new Compte([
-            'id_users' => $client->id, // Utilisez l'ID du client nouvellement créé
-            'numeroCompte' => $numeroCompte, // Assurez-vous que le numéro de compte est bien généré
-            'solde' => 0,
-            'statut' => 1,
-        ]);
+            $compte = new Compte([
+                'id_users' => $client->id,
+                'numeroCompte' => $numeroCompte,
+                'solde' => 0,
+                'statut' => 1,
+            ]);
     
-        $compte->save(); // Sauvegarde le compte en base de données
+            $compte->save();
     
-        return redirect()->route('clients.index')
-                         ->with('success', 'Client créé avec succès');
+            return redirect()->route('clients.index')
+                             ->with('success', 'Client créé avec succès');
+        } catch (QueryException $e) {
+            if ($e->errorInfo[1] == 1062) {
+                return redirect()->back()
+                                 ->withInput()
+                                 ->with('error', 'Le numéro de téléphone est déjà utilisé. Veuillez en choisir un autre.');
+            }
+
+            return redirect()->back()
+                             ->with('error', 'Erreur lors de la création du client.');
+        }
     }
-    
-
-
-
-
-    //*************************************************************************  */
-
 
     public function show(Client $client)
     {
         return view('details_client', compact('client'));
     }
 
-
-
-    //************************************************************************ */
-
     public function edit(Client $client)
     {
         return view('form_modif_client', compact('client'));
     }
-
-
-
-    //******************************************************************** */
-
 
     public function update(Request $request, Client $client)
     {
         $validated = $request->validate([
             'nom' => 'required|min:2',
             'prenom' => 'required|min:2',
-            'numero' => 'required|regex:/^[0-9+]{9}$/',
+            'telephone' => 'required|regex:/^[0-9]{9}$/|unique:users,telephone,' . $client->id,
             'date_naissance' => 'required|date|before:-18 years',
             'adresse' => 'required|min:5',
             'cni' => 'required|regex:/^[A-Z0-9]{5,}$/|unique:users,cni,' . $client->id,
-            'photo' => 'required|string',
-            'password' => 'required|min:8'
+            'photo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'password' => 'nullable|min:8'
         ]);
 
-        dd($validated);
+        if ($request->hasFile('photo')) {
+            $validated['photo'] = $request->file('photo')->store('photos', 'public');
+        }
+
+        if ($validated['password']) {
+            $validated['password'] = Hash::make($validated['password']);
+        } else {
+            unset($validated['password']);
+        }
 
         $client->update($validated);
+        if(Auth::user()->role == "client"){
+            return redirect()->route('client.dashboard')
+                         ->with('success', 'Client mis à jour avec succès');
+        }
 
         return redirect()->route('clients.index')
-            ->with('success', 'Client mis à jour avec succès');
+                         ->with('success', 'Client mis à jour avec succès');
     }
 
-
-//************************************************************************************* */
-
-
-
-   // ClientController.php
-   public function destroy(Client $client)
+    public function destroy(Client $client)
     {
-    // Vérifiez si le client a un compte associé
-    if ($client->compte) {
-        // Supprimez le compte
-        $client->compte->delete();
+        if ($client->compte) {
+            $client->compte->delete();
+        }
+
+        $client->delete();
+
+        return redirect()->route('clients.index')->with('success', 'Client supprimé avec succès.');
     }
 
-    // Supprimez le client
-    $client->delete();
-
-    return redirect()->route('clients.index')->with('success', 'Client  supprimés avec succès.');
-
-}
-
-//******************************************************************************************************* */
-
-
-public function bloquer($id)
+    public function bloquer($id)
     {
-        // Rechercher le client par son ID
         $client = Client::find($id);
 
-        // Vérifier si le client existe
         if (!$client) {
             return redirect()->back()->with('error', 'Client non trouvé.');
         }
 
-        // Mettre à jour le statut du compte
-        $client->compte->statut = 0; // Supposons que la relation est définie et que 'compte' est la relation avec le modèle Compte
+        $client->compte->statut = 0;
         $client->compte->save();
 
-        // Retourner un message de succès
         return redirect()->back()->with('success', 'Client bloqué avec succès.');
     }
 
     public function debloquer($id)
     {
-        // Rechercher le client par son ID
         $client = Client::find($id);
 
-        // Vérifier si le client existe
         if (!$client) {
             return redirect()->back()->with('error', 'Client non trouvé.');
         }
 
-        // Mettre à jour le statut du compte
-        $client->compte->statut = 1; // Supposons que la relation est définie et que 'compte' est la relation avec le modèle Compte
+        $client->compte->statut = 1;
         $client->compte->save();
 
-        // Retourner un message de succès
-        return redirect()->back()->with('success', 'Client debloqué avec succès.');
+        return redirect()->back()->with('success', 'Client débloqué avec succès.');
     }
-
-
 }

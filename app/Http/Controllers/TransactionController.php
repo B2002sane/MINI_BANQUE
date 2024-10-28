@@ -196,4 +196,75 @@ class TransactionController extends Controller
     {
         return view('retrait');  // Fichier retrait.blade.php dans resources/views
     }
+
+
+    /**************************************Annuler transfert******************************************* */
+
+
+
+
+    public function annuler(Request $request){
+        // Validation des champs du formulaire
+        $validated = $request->validate([
+           'telephone' => ['required', 'regex:/^[0-9]{9}$/'],
+           'montant' => ['required', 'integer', 'min:50'],
+           'telephone2' => ['required', 'regex:/^[0-9]{9}$/'],
+       ]);
+
+       // Récupérer le client par téléphone
+       $user = User::where('telephone', $validated['telephone'])->first();
+       $user2 = User::where('telephone', $validated['telephone2'])->first();
+
+       if(!$user){
+           return to_route('annuler')->withErrors(['telephone' => 'Ne dispose pas de compte'])->onlyinput('telephone');
+       }
+
+       if(!$user2){
+        return to_route('annuler')->withErrors(['telephone2' => 'Ne dispose pas de compte'])->onlyinput('telephone2');
+    }
+
+       $transaction = Transaction::where([
+        ['id_users', $user->id],
+        ['montant', $validated['montant']],
+        ['type', 'transfert'],
+        ['expediteur', $user2->id]
+       ])->latest()->first();
+
+       if (!$transaction){
+        return to_route('annuler')->withErrors(['montant' => 'transfert inexistant'])->onlyinput('telephone2');
+       }
+
+       $compteD = Compte::where('id_users', $user->id)->first();
+       $compteE = Compte::where('id_users', $user2->id)->first();
+
+       if (!$compteD && $user->role !== 'client') {
+           return back()->withErrors(['telephone' => 'Compte introuvable.'])->withinput('telephone', 'montant');
+       }
+
+       if($compteD->statut === 0){
+           return to_route('transfert')->withErrors(['telephone' => 'Compte bloqué'])->onlyinput('telephone');
+       }
+
+       if($compteE->statut === 0){
+        return to_route('transfert')->withErrors(['telephone2' => 'Compte bloqué'])->onlyinput('telephone2');
+    }
+
+       $montantRecu = $validated['montant'];
+       $frais = $montantRecu * 0.02; // Calcul des frais de 2%
+       $montantEnvoye= $montantRecu + $frais;
+
+
+       $compteD->solde -= $montantRecu;
+       $compteE->solde += $montantEnvoye;
+
+       $compteE->save();
+       $compteD->save();
+
+       // Enregistrer la transaction
+       $transaction->delete();
+
+
+       // Retourner un message de succès
+       return redirect()->back()->with('success', 'transfert effectué avec succès.');
+   }
 }

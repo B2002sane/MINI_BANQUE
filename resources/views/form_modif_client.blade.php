@@ -266,13 +266,29 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
+                            <label for="password">Mot de passe</label>
+                            <input type="password" 
+                                   class="form-control @error('password') is-invalid @enderror" 
+                                   id="password" 
+                                   name="password" 
+                                   value="" 
+                                   required>
+                            @error('cni')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
                             <label for="photo">PHOTO</label>
-                            <input type="text" 
+                            <input type="file" 
                                    class="form-control @error('photo') is-invalid @enderror" 
                                    id="photo" 
                                    name="photo" 
                                    value="{{ old('photo', $client->photo) }}" 
-                                   required>
+                                   >
                             @error('photo')
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
@@ -282,9 +298,15 @@
               
 
                 <div class="text-center mt-4">
-                    <button type="submit" class="btn btn-primary px-5">METTRE À JOUR</button>
-                    <a href="{{ route('clients.index') }}" class="btn btn-danger px-5 ms-3">ANNULER</a>
-                </div>
+    <button type="submit" class="btn btn-primary px-5">METTRE À JOUR</button>
+
+    @if (Auth::user()->role == 'client')
+        <a href="{{ route('client.dashboard') }}" class="btn btn-danger px-5 ms-3">ANNULER</a>
+    @else
+        <a href="{{ route('clients.index') }}" class="btn btn-danger px-5 ms-3">ANNULER</a>
+    @endif
+</div>
+
             </form>
         </div>
     </div>

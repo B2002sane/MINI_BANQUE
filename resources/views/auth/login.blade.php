@@ -6,7 +6,6 @@
     <title>Fast Money - Connexion</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ asset('css/login.css') }}">
     <style>
         .is-valid {
@@ -59,8 +58,8 @@
                         <label for="password">Mot de passe</label>
                         <div class="input-group">
                             <input type="password" id="password" name="password" placeholder="Saisir votre mot de passe" required>
-                            <span class="input-group-icon password-toggle" id="togglePassword">
-                                <i class="fas fa-eye"></i>
+                            <span class="input-group-icon password-toggle" id="togglePassword" style="cursor: pointer;">
+                                <i class="fas fa-eye" id="eyeIcon"></i>
                             </span>
                             @error('password')
                                 <span class="invalid-feedback" role="alert">
@@ -106,9 +105,22 @@
                 passwordInput.classList.remove('is-invalid');
                 passwordInput.classList.add('is-valid');
                 passwordError.textContent = '';
-
-              
             }
+        });
+
+        // Fonctionnalité de l'icône de mot de passe
+        const passwordInput = document.getElementById('password');
+        const togglePassword = document.getElementById('togglePassword');
+        const eyeIcon = document.getElementById('eyeIcon');
+
+        togglePassword.addEventListener('click', function() {
+            // Toggle le type du mot de passe
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+
+            // Toggle l'icône de l'œil barré
+            eyeIcon.classList.toggle('fa-eye');
+            eyeIcon.classList.toggle('fa-eye-slash');
         });
     </script>
 </body>

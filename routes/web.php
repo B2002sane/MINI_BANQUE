@@ -2,6 +2,7 @@
 
 
 use App\Http\Controllers\DistributeurController;
+use App\Http\Controllers\CompteController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\historiqueTransactionsController;
 use App\Http\Controllers\InscriptionClientController;
@@ -29,10 +30,6 @@ Route::get('/inscription_client', function () {
 });
 
 
-
-
-
-
 Route::get('/list_client', function () {
     return view('list_client');
 });
@@ -40,11 +37,6 @@ Route::get('/list_client', function () {
 Route::get('/form', function () {
     return view('formulaireTransactions');
 })->name('transaction.form');
-
-Route::get('/crediter_distributeur', function () {
-    return view('crediter_distributeur');
-})->name('crediter_distributeur');
-
 
 
 
@@ -74,13 +66,22 @@ Route::post('/tranfert', [TransactionController::class, 'transfert'])->name('tra
 
 Route::resource('transactions', historiqueTransactionsController::class);
 
+Route::post('/annuler/transfert', [TransactionController::class, 'annuler'])->name('transfert.annuler');     
+Route::get('/annuler/transfert', function () {
+return view('annulerTransfert');
+})->name('annuler');
+
+Route::get('/crediter_distributeur', function () {
+    return view('crediterDistributeur');
+});
+Route::post('/crediter_distributeur', [CompteController::class, 'crediterDistributeur']) ->name('crediter_distributeur');
 
 
 
 
 /********************************************************************* */
 
-
+Route::resource('clients', ClientController::class);
 
 Route::get('/login', [loginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [loginController::class, 'login']);
@@ -93,7 +94,7 @@ Route::middleware(['auth', 'role:agent'])->group(function () {
         return view('dashboard_agent'); // Vue à créer pour le tableau de bord agent
     })->name('agent.dashboard');
 
-    Route::resource('clients', ClientController::class);
+
     Route::post('/clients/{id}/bloquer', [ClientController::class, 'bloquer'])->name('clients.bloquer');
     Route::post('/clients/{id}/debloquer', [ClientController::class, 'debloquer'])->name('clients.debloquer');
 
@@ -109,6 +110,8 @@ Route::middleware(['auth', 'role:client'])->group(function () {
     Route::get('/transfert', function (){
         return view('transfert');
     })->name('transfert');
+
+    
 
 });
 

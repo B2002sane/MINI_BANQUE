@@ -68,12 +68,11 @@ class DistributeurController extends Controller
 
             // Création du compte associé
             $compte = new Compte([
-                'id_utilisateur' => $utilisateur->id,
+                'id_users' => $utilisateur->id,
                 'numeroCompte' => $numeroCompte,
                 'solde' => 0,
                 'statut' => 1, // 1 pour actif
-                'date_creation' => now(),
-                'date_suppression' => null
+              
             ]);
 
             $compte->save();
@@ -153,7 +152,7 @@ class DistributeurController extends Controller
                 $utilisateur = Client::findOrFail($id);
                 
                 // Supprimer les comptes associés (si applicable)
-                Compte::where('id_utilisateur', $id)->delete();
+                Compte::where('id_users', $id)->delete();
 
                 // Supprimer l'utilisateur
                 $utilisateur->delete();

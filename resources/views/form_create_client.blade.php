@@ -80,6 +80,18 @@
     <div class="monlogo">
         <img src="{{ asset('images/fast_money.png') }}" alt="Fast Money Logo">
     </div>
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
+        @if(session('error'))
+            <div class="alert alert-danger">
+                {{ session('error') }}
+            </div>
+        @endif
+
 
     <div class="container">
         <div class="card">
@@ -98,7 +110,7 @@
                                        name="nom" 
                                        value="{{ old('nom') }}" 
                                        required>
-                                <div class="invalid-feedback">Le nom doit contenir au moins 2 caractères.</div>
+                                <div class="invalid-feedback">Le nom doit contenir au moins 3 caractères.</div>
                             </div>
                         </div>
 
@@ -111,7 +123,7 @@
                                        name="prenom" 
                                        value="{{ old('prenom') }}" 
                                        required>
-                                <div class="invalid-feedback">Le prénom doit contenir au moins 2 caractères.</div>
+                                <div class="invalid-feedback">Le prénom doit contenir au moins 3 caractères.</div>
                             </div>
                         </div>
 
@@ -226,7 +238,7 @@
                 switch(input.id) {
                     case 'nom':
                     case 'prenom':
-                        isValid = value.length >= 2;
+                        isValid = value.length >= 3;
                         break;
 
                     case 'telephone':
@@ -248,7 +260,7 @@
                         break;
 
                     case 'cni':
-                        isValid = value.length > 0;
+                        isValid = value.length > 14;
                         break;
 
                     case 'photo':

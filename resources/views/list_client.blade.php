@@ -63,7 +63,7 @@
                             @if($client->photo)
                                 <img src="{{ Storage::url($client->photo) }}" 
                                      alt="Photo de {{ $client->nom }}" 
-                                     width="50" height="50" 
+                                     width="50" height="150" 
                                      class="rounded-circle">
                             @else
                                 <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center" 
