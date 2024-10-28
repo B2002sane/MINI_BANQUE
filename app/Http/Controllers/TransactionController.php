@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Compte;
 use App\Models\Transaction;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 
 class TransactionController extends Controller
 {
@@ -19,15 +21,15 @@ class TransactionController extends Controller
         ]);
 
         // Récupérer le client par téléphone
-        $user = User::where('telephone', $validated['telephone'])->first();
-        $dtb = User::where('role', 'distributeur')->first();
+        $userC = User::where('telephone', $validated['telephone'])->first();
+        $dtb = Auth::user();
 
-        if (!$user) {
+        if (!$userC) {
             return back()->withErrors(['telephone' => 'Client non trouvé.']);
         }
 
         // Récupérer le compte du client
-        $compte = Compte::where('id_users', $user->id)->first();
+        $compte = Compte::where('id_users', $userC->id)->first();
         $compteD = Compte::where('id_users', $dtb->id)->first();
 
         if (!$compte) {
@@ -43,6 +45,10 @@ class TransactionController extends Controller
             return back()->withErrors(['montant' => 'Solde insuffisant pour ce retrait.']);
         }
 
+        if ($compteD->solde < $montantTotal) {
+            return back()->withErrors(['telephone' => 'Compte distributeur insuffisant.']);
+        }
+
         // Déduire le montant du solde
         $compte->solde -= $montantTotal;
         $compteD->solde = $compteD->solde - $montant + $frais;
@@ -51,7 +57,7 @@ class TransactionController extends Controller
 
         // Enregistrer la transaction
         Transaction::create([
-            'id_users' => $user->id,
+            'id_users' => $userC->id,
             'montant' => $montant,
             'type' => 'retrait',
             'status' => 1,
@@ -78,14 +84,14 @@ class TransactionController extends Controller
         ]);
 
         // Récupérer le client par téléphone
-        $user = User::where('telephone', $validated['telephone'])->first();
-        $user2 = User::where('telephone', 782416550)->first();
+        $user1 = User::where('telephone', $validated['telephone'])->first();
+        $user2 = Auth::user();
 
-        if(!$user){
+        if(!$user1){
             return to_route('transfert')->withErrors(['telephone' => 'Ne dispose pas de compte'])->onlyinput('telephone');
         }
 
-        $compteD = Compte::where('id_users', $user->id)->first();
+        $compteD = Compte::where('id_users', $user1->id)->first();
         $compteE = Compte::where('id_users', $user2->id)->first();
 
         if (!$compteD && $user->role !== 'client') {
@@ -112,7 +118,7 @@ class TransactionController extends Controller
 
         // Enregistrer la transaction
         Transaction::create([
-            'id_users' => $user->id,
+            'id_users' => $user1->id,
             'montant' => $montantRecu,
             'type' => 'transfert',
             'status' => 1,
@@ -138,15 +144,19 @@ class TransactionController extends Controller
         ]);
 
         // Récupérer le client par téléphone
-        $user = User::where('telephone', $validated['telephone'])->first();
-        $dtb = User::where('role', 'distributeur')->first();
+        $userC = User::where('telephone', $validated['telephone'])->first();
+        $dtb = Auth::user();
 
-        if (!$user) {
+        if (!$userC) {
             return back()->withErrors(['telephone' => 'Client non trouvé.']);
         }
 
+        if (!$dtb) {
+            return redirect()->route('login')->withErrors(['error' => 'Session expirée. Veuillez vous reconnecter.']);
+        }
+
         // Récupérer le compte du client
-        $compte = Compte::where('id_users', $user->id)->first();
+        $compte = Compte::where('id_users', $userC->id)->first();
         $compteD = Compte::where('id_users', $dtb->id)->first();
 
         if (!$compte) {
@@ -157,7 +167,9 @@ class TransactionController extends Controller
         $frais = $montant * 0.01; // Calcul des frais de 1%
         $montantTotal = $montant - $frais;
 
-        
+        if ($compteD->solde < $montantTotal) {
+            return back()->withErrors(['telephone' => 'Compte distributeur insuffisant.']);
+        }
 
         // Déduire le montant du solde
         $compte->solde += $montantTotal;
@@ -167,7 +179,7 @@ class TransactionController extends Controller
 
         // Enregistrer la transaction
         Transaction::create([
-            'id_users' => $user->id,
+            'id_users' => $userC->id,
             'montant' => $montant,
             'type' => 'depot',
             'status' => 1,

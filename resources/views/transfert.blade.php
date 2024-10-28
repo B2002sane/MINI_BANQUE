@@ -74,7 +74,12 @@
                 text: 'Le montant a été retiré de votre compte.',
                 confirmButtonText: 'Retour à l\'accueil',
                 confirmButtonColor: '#3085d6',
-            });
+            }).then((result) => {
+            if (result.isConfirmed) {
+                // Rediriger vers une autre vue quand le bouton est cliqué
+                window.location.href = "{{ route('client.dashboard') }}"; // Remplacez 'nom.de.la.route' par le nom de la route de votre vue
+            }
+        });
         @endif
     });
 </script>
